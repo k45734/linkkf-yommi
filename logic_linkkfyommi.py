@@ -655,7 +655,6 @@ class LogicLinkkfYommi(object):
                 res = urllib.request.urlopen(iframe_url)
                 logger.info('{}'.format(TITLE , res.status))
                 html_data = LogicLinkkfYommi.get_html(iframe_url)
-                break
             except:
                 pass
             
