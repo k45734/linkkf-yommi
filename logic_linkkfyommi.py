@@ -651,7 +651,14 @@ class LogicLinkkfYommi(object):
                 iframe_url = (f'https://s2.ani1c12.top/player/index.php?data={iframe_info["url"]}')
             except:
                 iframe_url = url
-            html_data = LogicLinkkfYommi.get_html(iframe_url)
+            try:
+                res = urllib.request.urlopen(iframe_url)
+                logger.info('{}'.format(TITLE , res.status))
+                html_data = LogicLinkkfYommi.get_html(iframe_url)
+                break
+            except:
+                pass
+            
 
             # logger.info(html_data)
 
