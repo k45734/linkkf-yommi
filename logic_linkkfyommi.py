@@ -672,12 +672,13 @@ class LogicLinkkfYommi(object):
             url2s = random.sample(url2s1, 2)
            # url2s = random.choices(url2s1, k=2)
             logger.info("dx: urls2:: %s", url2s)
+            cnt = 1
             for url2 in url2s:
                 logger.debug('%s',url2)
                 try:
                     if video_url is not None:
                         continue
-                    logger.debug(f"url: {url}, url2: {url2}")
+                    logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
                     ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
                     if ret is not None:
@@ -688,6 +689,7 @@ class LogicLinkkfYommi(object):
                     #logger.error(traceback.format_exc())
                 except:
                     pass
+                cnt += 1
             # logger.info(video_url)
 
             # return [video_url, referer_url]
