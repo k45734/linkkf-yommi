@@ -651,11 +651,10 @@ class LogicLinkkfYommi(object):
                 iframe_url = (f'https://s2.ani1c12.top/player/index.php?data={iframe_info["url"]}')
             except:
                 iframe_url = url
-            html_data = LogicLinkkfYommi.get_html(iframe_url)
-
             # logger.info(html_data)
             for ii in range(1, 1000):
                 try:
+                    html_data = LogicLinkkfYommi.get_html(iframe_url)
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
                     break
