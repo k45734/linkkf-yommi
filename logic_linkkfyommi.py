@@ -676,14 +676,14 @@ class LogicLinkkfYommi(object):
             for url2 in url2s:
                 logger.debug('%s',url2)
                 try:
-                    if video_url is not None:
-                        continue
+                    #if video_url is not None:
+                    #    continue
                     logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
                     ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
-                    if ret is not None:
-                        video_url = ret
-                        referer_url = url2
+                    #if ret is not None:
+                     #   video_url = ret
+                    #    referer_url = url2
                 #except Exception as e:
                     #logger.error("Exception:%s", e)
                     #logger.error(traceback.format_exc())
