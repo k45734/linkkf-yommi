@@ -652,11 +652,11 @@ class LogicLinkkfYommi(object):
             except:
                 iframe_url = url
             # logger.info(html_data)
-            for ii in range(1, 1000):
+            while True:
                 try:
                     html_data = LogicLinkkfYommi.get_html(iframe_url)
                     tree = html.fromstring(html_data)
-                    logger.debug(html_data)
+                    #logger.debug(html_data)
                     break
                 except:
                     pass
