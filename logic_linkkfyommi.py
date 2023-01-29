@@ -396,7 +396,7 @@ class LogicLinkkfYommi(object):
                 logger.debug("kfani routine=================================")
                 LogicLinkkfYommi.referer = url2
                 # logger.debug(f"url2: {url2}")
-                for ii in range(1, 1000):
+                while True:
                     try:
                         data = LogicLinkkfYommi.get_html(url2)
                         break
