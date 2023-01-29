@@ -649,15 +649,15 @@ class LogicLinkkfYommi(object):
             # 프레임이 없으면 무시하고 기존처럼 처리 하기			
             try:
                 iframe_url = (f'https://s2.ani1c12.top/player/index.php?data={iframe_info["url"]}')
-            except:
-                iframe_url = url
-            try:
                 res = urllib.request.urlopen(iframe_url)
                 logger.info('{}'.format(TITLE , res.status))
-                html_data = LogicLinkkfYommi.get_html(iframe_url)
+				if res.status == 200:
+                    html_data = LogicLinkkfYommi.get_html(iframe_url)
+                else:
+                    iframe_url = url
             except:
-                pass
-            
+                iframe_url = url
+                html_data = LogicLinkkfYommi.get_html(iframe_url)
 
             # logger.info(html_data)
 
