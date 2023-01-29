@@ -396,7 +396,12 @@ class LogicLinkkfYommi(object):
                 logger.debug("kfani routine=================================")
                 LogicLinkkfYommi.referer = url2
                 # logger.debug(f"url2: {url2}")
-                data = LogicLinkkfYommi.get_html(url2)
+                for ii in range(1, 1000):
+                    try:
+                        data = LogicLinkkfYommi.get_html(url2)
+                        break
+                    except:
+                        pass
                 # logger.info("dx: data", data)
                 regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
