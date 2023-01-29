@@ -654,7 +654,7 @@ class LogicLinkkfYommi(object):
             html_data = LogicLinkkfYommi.get_html(iframe_url)
 
             # logger.info(html_data)
-            for ii in range(1, 50):
+            for ii in range(1, 1000):
                 try:
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
