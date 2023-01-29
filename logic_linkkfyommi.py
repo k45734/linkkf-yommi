@@ -711,10 +711,11 @@ class LogicLinkkfYommi(object):
                     if ret is not None:
                         video_url = ret
                         referer_url = url2
-                except Exception as e:
-                    logger.error("Exception:%s", e)
-                    logger.error(traceback.format_exc())
-
+                #except Exception as e:
+                    #logger.error("Exception:%s", e)
+                    #logger.error(traceback.format_exc())
+                except:
+                    pass
             # logger.info(video_url)
 
             # return [video_url, referer_url]
