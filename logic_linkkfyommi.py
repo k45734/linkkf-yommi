@@ -562,11 +562,11 @@ class LogicLinkkfYommi(object):
 
             else:
                 logger.error("새로운 유형의 url 발생! %s %s" % (url, url2))
-        #except Exception as e:
-        #    logger.error("Exception:%s", e)
-         #   logger.error(traceback.format_exc())
-        except:
-            pass
+        except Exception as e:
+            logger.error("Exception:%s", e)
+            logger.error(traceback.format_exc())
+        #except:
+       #     pass
         # logger.debug(f"referer_url: {referer_url}")
         # logger.debug(f"LogicLinkkfYommi.referer: {LogicLinkkfYommi.referer}")
 
@@ -681,7 +681,10 @@ class LogicLinkkfYommi(object):
                     logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
                     ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
-                    if ret is not None:
+                    if ret == None:
+                        pass
+                    else:						
+                    #if ret is not None:
                         video_url = ret
                         referer_url = url2
                         break
