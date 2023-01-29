@@ -1518,6 +1518,7 @@ class LogicLinkkfYommi(object):
         )
         # logger.info('srt_filepath::: %s', srt_filepath)
         if ani_url[2] is not None and not os.path.exists(srt_filepath):
+            os.makedirs(srt_filepath)
             res = requests.get(vtt_url, headers=headers)
             vtt_data = res.text
             vtt_status = res.status_code
