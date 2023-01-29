@@ -362,33 +362,13 @@ class LogicLinkkfYommi(object):
                     if i is None:
                         continue
                     video_url = i
-                    # video_url = '{1} -headers \'Referer: "{0}"\' -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64;
-                    # x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3554.0 Safari/537.36"'.format(ref,
-                    # video_url)
-
-                # print("")
-                # print(video_url)
-                # print("")
-                # LogicLinkkfYommi.get_video_url_from_url(video_url, "https://kfani.me/")
-                # print(data)
                 data_tree = html.fromstring(data)
-                # print(data_tree.xpath("//video/source/@src"))
                 vtt_elem = data_tree.xpath("//track/@src")[0]
-                # vtt_elem = data_tree.xpath("//*[contains(@src, '.vtt']")[0]
 
                 print(vtt_elem)
-                # logger.debug(f"data::::::::::: {data}")
-                # print(":::")
 
-                match = re.compile(
-                    r"<track.+src=\"(?P<vtt_url>.*?.vtt)\"", re.MULTILINE
-                ).search(data)
-                # logger.info("match group: %s", match.group('vtt_url'))
-                # print(f"match:: {match}")
+                match = re.compile(r"<track.+src=\"(?P<vtt_url>.*?.vtt)\"", re.MULTILINE).search(data)
                 vtt_url = match.group("vtt_url")
-                # # logger.info("vtt_url: %s", vtt_url)
-                # # logger.debug(f"LogicLinkkfYommi.referer: {LogicLinkkfYommi.referer}")
-                # # referer_url = url2
                 referer_url = "https://kfani.me/"
 
             elif "kfani" in url2:
@@ -396,12 +376,7 @@ class LogicLinkkfYommi(object):
                 logger.debug("kfani routine=================================")
                 LogicLinkkfYommi.referer = url2
                 # logger.debug(f"url2: {url2}")
-                while True:
-                    try:
-                        data = LogicLinkkfYommi.get_html(url2)
-                        break
-                    except:
-                        pass
+                data = LogicLinkkfYommi.get_html(url2)
                 # logger.info("dx: data", data)
                 regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
@@ -416,9 +391,7 @@ class LogicLinkkfYommi(object):
                     if i is None:
                         continue
                     video_url = i
-                    # video_url = '{1} -headers \'Referer: "{0}"\' -user_agent "Mozilla/5.0 (Windows NT 10.0; Win64;
-                    # x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3554.0 Safari/537.36"'.format(ref,
-                    # video_url)
+                    
                 try:
                     match = re.compile(r"<track.+src=\"(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
                     vtt_url = match.group("vtt_url")
@@ -589,10 +562,11 @@ class LogicLinkkfYommi(object):
 
             else:
                 logger.error("새로운 유형의 url 발생! %s %s" % (url, url2))
-        except Exception as e:
-            logger.error("Exception:%s", e)
-            logger.error(traceback.format_exc())
-
+        #except Exception as e:
+        #    logger.error("Exception:%s", e)
+         #   logger.error(traceback.format_exc())
+        except:
+            pass
         # logger.debug(f"referer_url: {referer_url}")
         # logger.debug(f"LogicLinkkfYommi.referer: {LogicLinkkfYommi.referer}")
 
