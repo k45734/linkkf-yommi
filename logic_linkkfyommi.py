@@ -662,8 +662,6 @@ class LogicLinkkfYommi(object):
             # logger.info(html_data)
 
             tree = html.fromstring(html_data)
-
-            # xpath_select_query = '//*[@id="body"]/div/span/center/select/option'
             xpath_select_query = '//*[@id="body"]/div/span/center/select/option'
 
             logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
