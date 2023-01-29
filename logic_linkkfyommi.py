@@ -673,15 +673,13 @@ class LogicLinkkfYommi(object):
            # url2s = random.choices(url2s1, k=2)
             logger.info("dx: urls2:: %s", url2s)
             for url2 in url2s:
-                logger.info('%s',url2)
+                logger.debug('%s',url2)
                 try:
-
                     if video_url is not None:
                         continue
                     logger.debug(f"url: {url}, url2: {url2}")
                     ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
-
                     if ret is not None:
                         video_url = ret
                         referer_url = url2
@@ -868,23 +866,16 @@ class LogicLinkkfYommi(object):
     def get_search_result(query):
 
         try:
-            # query = query.encode("utf-8")
             _query = urllib.parse.quote(query)
             url = f"{ModelSetting.get('linkkf_url')}/?s={_query}"
             logger.debug("search url::> %s", url)
-            # html_content = LogicLinkkfYommi.get_html(url)
             html_content = LogicLinkkfYommi.get_html(url)
             download_path = ModelSetting.get("download_path")
             tree = html.fromstring(html_content)
             tmp_items = tree.xpath('//div[@class="myui-vodlist__box"]')
             title_xpath = './/a[@class="text-fff"]//text()'
-
-            # tmp_items = tree.xpath('//div[@class="item"]')
-            # logger.info('tmp_items:::', tmp_items)
-
             data = {"ret": "success", "query": query}
 
-            # data["total_page"] = tree.xpath('//*[@id="wp_page"]//text()')[-1]
             if tree.xpath('//*[@id="wp_page"]//text()'):
                 data["total_page"] = tree.xpath('//*[@id="wp_page"]//text()')[-1]
             else:
@@ -895,21 +886,9 @@ class LogicLinkkfYommi(object):
 
             for item in tmp_items:
                 entity = {}
-                # entity["link"] = item.xpath(".//a/@href")[0]
-                # entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
-                # entity["title"] = item.xpath('.//span[@class="name-film"]//text()')[
-                #     0
-                # ].strip()
-                # entity["image_link"] = item.xpath('.//img[@class="photo"]/@src')[0]
-
                 entity["link"] = item.xpath(".//a/@href")[0]
-                # logger.debug(f"link()::entity['link'] => {entity['link']}")
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
                 entity["title"] = item.xpath(title_xpath)[0].strip()
-                # print(entity["title"])
-
-                # print(type(item.xpath("./a/@style")))
-
                 if len(item.xpath("./a/@style")) > 0:
                     print(
                         re.search(
@@ -971,20 +950,14 @@ class LogicLinkkfYommi(object):
                 title_xpath = './/a[@class="text-fff"]//text()'
             elif cate == "movie":
                 url = f"{ModelSetting.get('linkkf_url')}/ani/page/{page}"
-                # items_xpath = '//div[@class="item"]'
-                # title_xpath = './/span[@class="name-film"]//text()'
                 items_xpath = '//div[@class="myui-vodlist__box"]'
                 title_xpath = './/a[@class="text-fff"]//text()'
             elif cate == "complete":
                 url = f"{ModelSetting.get('linkkf_url')}/anime-list/page/{page}"
-                # items_xpath = '//div[@class="item"]'
-                # title_xpath = './/span[@class="name-film"]//text()'
                 items_xpath = '//div[@class="myui-vodlist__box"]'
                 title_xpath = './/a[@class="text-fff"]//text()'
             elif cate == "top_view":
                 url = f"{ModelSetting.get('linkkf_url')}/topview/page/{page}"
-                # items_xpath = "//div[@id='body']/article[not(@class)]"
-                # title_xpath = ".//strong//text()"
                 items_xpath = '//div[@class="myui-vodlist__box"]'
                 title_xpath = './/a[@class="text-fff"]//text()'
 
@@ -994,27 +967,9 @@ class LogicLinkkfYommi(object):
                 LogicLinkkfYommi.referer = f"{ModelSetting.get('linkkf_url')}"
 
             html_content = LogicLinkkfYommi.get_html(url, cached=False)
-            # html_content = LogicLinkkfYommi.get_html_cloudflare(url, cached=False)
-            # logger.debug(html_content)
             data = {"ret": "success", "page": page}
-
-            # download_path = ModelSetting.get("download_path")
-
-            # json_file_path = os.path.join(download_path, "airing_list.json")
-            # if os.path.exists(json_file_path):
-            #     with open(json_file_path, "r") as json_f:
-            #         file_data = json.load(json_f)
-            #         data["latest_anime_code"] = file_data["episode"][0]["code"]
-
-            # data["latest_anime_code"] = "352787"
-
             tree = html.fromstring(html_content)
-
-            # if (cate == 'top_view'):
             tmp_items = tree.xpath(items_xpath)
-            # logger.info(f"tmp_items::: {tmp_items}")
-
-            # data["total_page"] = tree.xpath('//*[@id="wp_page"]//text()')[-1]
             if tree.xpath('//div[@id="wp_page"]//text()'):
                 data["total_page"] = tree.xpath('//div[@id="wp_page"]//text()')[-1]
             else:
@@ -1025,34 +980,15 @@ class LogicLinkkfYommi(object):
             for item in tmp_items:
                 entity = dict()
                 entity["link"] = item.xpath(".//a/@href")[0]
-                # logger.debug(f"link()::entity['link'] => {entity['link']}")
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
                 entity["title"] = item.xpath(title_xpath)[0].strip()
-                # print(":++")
-                # print(entity["title"])
-                # print(":++")
                 entity["image_link"] = item.xpath("./a/@data-original")[0]
                 entity["chapter"] = (
                     item.xpath("./a/span//text()")[0]
                     if len(item.xpath("./a/span//text()")) > 0
                     else ""
                 )
-                # logger.info('entity:::', entity['title'])
                 data["episode"].append(entity)
-
-            # json_file_path = os.path.join(download_path, "airing_list.json")
-            # logger.debug("json_file_path:: %s", json_file_path)
-            # json_file_dir = os.path.dirname(json_file_path)
-            #
-            # if os.path.exists(json_file_path):
-            #     logger.debug("airing_list.json file deleted.")
-            #     os.remove(json_file_path)
-            #
-            # if not os.path.exists(json_file_dir):
-            #     os.makedirs(json_file_dir)
-            #
-            # with open(json_file_path, "w") as outfile:
-            #     json.dump(data, outfile)
 
             return data
 
@@ -1156,22 +1092,7 @@ class LogicLinkkfYommi(object):
                     if len(item.xpath("./a/span//text()")) > 0
                     else ""
                 )
-                # entity["link"] = item.xpath(".//a/@href")[0]
-                # entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
-                # entity["title"] = item.xpath('.//span[@class="name-film"]//text()')[
-                #     0
-                # ].strip()
-                # entity["image_link"] = item.xpath(
-                #     './/img[@class="photo"]/@data-lazy-src'
-                # )[0]
-                # logger.info('entity:::', entity['title'])
                 data["episode"].append(entity)
-
-            # json_file_path = os.path.join(download_path, "airing_list.json")
-            # logger.debug("json_file_path:: %s", json_file_path)
-            #
-            # with open(json_file_path, "w") as outfile:
-            #     json.dump(data, outfile)
 
             return data
 
@@ -1194,31 +1115,13 @@ class LogicLinkkfYommi(object):
             logger.debug(LogicLinkkfYommi.headers)
 
             html_content = LogicLinkkfYommi.get_html(url, cached=False)
-            # html_content = LogicLinkkfYommi.get_html_playwright(url)
-            # html_content = LogicLinkkfYommi.get_html_cloudflare(url, cached=False)
-
-            # logger.debug(html_content)
 
             sys.setrecursionlimit(10**7)
-            # logger.info(html_content)
             tree = html.fromstring(html_content)
-            # tree = etree.fromstring(
-            #     html_content, parser=etree.XMLParser(huge_tree=True)
-            # )
-            # tree1 = BeautifulSoup(html_content, "lxml")
 
             soup = BeautifulSoup(html_content, "html.parser")
-            # tree = etree.HTML(str(soup))
-            # logger.info(tree)
 
             data = {"code": code, "ret": False}
-            # //*[@id="body"]/div/div[1]/article/center/strong
-            # tmp = tree.xpath('/html/body/div[2]/div/div/article/center/strong'
-            #                  )[0].text_content().strip().encode('utf8')
-            # tmp = tree.xpath('//*[@id="body"]/div/div[1]/article/center/strong')[0].text_content().strip()
-            # logger.info('tmp::>', tree.xpath('//div[@class="hrecipe"]/article/center/strong'))
-            # tmp1 = tree.xpath("//div[contains(@id, 'related')]/ul/a")
-            # tmp = tree1.find_element(By.Xpath, "//ul/a")
             tmp = soup.select("ul > a")
 
             # logger.debug(f"tmp1 size:=> {str(len(tmp))}")
@@ -1231,17 +1134,12 @@ class LogicLinkkfYommi(object):
                 )
             except IndexError:
                 tmp = tree.xpath("//article/center/strong")[0].text_content().strip()
-
-            # print(tmp)
-            # logger.info(tmp)
             match = re.compile(r"(?P<season>\d+)기").search(tmp)
             if match:
                 data["season"] = match.group("season")
             else:
                 data["season"] = "1"
 
-            # replace_str = f'({data["season"]}기)'
-            # logger.info(replace_str)
             data["_id"] = str(code)
             data["title"] = tmp.replace(data["season"] + "기", "").strip()
             data["title"] = data["title"].replace("()", "").strip()
