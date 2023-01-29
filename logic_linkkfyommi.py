@@ -681,10 +681,9 @@ class LogicLinkkfYommi(object):
                     logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
                     ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
-                    break
-                    #if ret is not None:
-                     #   video_url = ret
-                    #    referer_url = url2
+                    if ret is not None:
+                        video_url = ret
+                        referer_url = url2
                 #except Exception as e:
                     #logger.error("Exception:%s", e)
                     #logger.error(traceback.format_exc())
