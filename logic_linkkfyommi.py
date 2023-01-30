@@ -41,7 +41,7 @@ from requests_cache import CachedSession
 try:
 	import cloudscraper
 except ImportError:
-	os.system("{} install cloudscraper".format(app.config['config']['pip']))
+	os.system(f'{app.config["config"]["pip"]} install cloudscraper')
 	import cloudscraper
 
 
@@ -50,7 +50,7 @@ from lxml import html
 try:
 	from bs4 import BeautifulSoup
 except ImportError:
-	os.system("{} install BeautifulSoup4".format(app.config['config']['pip']))
+	os.system(f'{app.config["config"]["pip"]} install BeautifulSoup4')
 	from bs4 import BeautifulSoup
 
 # 패키지
