@@ -49,11 +49,11 @@
 
     const loader = document.getElementById("preloader");
 
-    //const delay = (n) => {
-    //    return new Promise(function (resolve) {
-    //        setTimeout(resolve, n * 1000);
-     //   });
-    //}
+    const delay = (n) => {
+        return new Promise(function (resolve) {
+            setTimeout(resolve, n * 1000);
+        });
+    }
 
     const dismissLoadingScreen = async function () {
         console.log("Before the delay")
