@@ -185,7 +185,7 @@ body {
 /*    z-index: 99999;*/
 /*}*/
 
-.loader-inner {
+/*.loader-inner {
     bottom: 0;
     height: 60px;
     left: 0;
@@ -283,4 +283,4 @@ body {
     100% {
         transform: rotate(360deg);
     }
-}
+}*/
