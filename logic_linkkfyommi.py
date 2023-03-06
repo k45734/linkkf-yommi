@@ -1152,7 +1152,7 @@ class LogicLinkkfYommi(object):
             data["title"] = data["title"].replace("()", "").strip()
             data["title"] = (
                 Util.change_text_for_use_filename(data["title"])
-                .replace("OVA", "")
+                .replace("OVA", "OVA")
                 .strip()
             )
             # logger.info(f"title:: {data['title']}")
