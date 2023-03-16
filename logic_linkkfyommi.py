@@ -646,11 +646,13 @@ class LogicLinkkfYommi(object):
             if len(tree.xpath(xpath_select_query)) > 0:
                 pass
             else:
-                print("::here")
-                xpath_select_query = '//select[@class="switcher"]/option'
-                xpath_select_query = "//select/option"
-                xpath_select_query = '//*[@id="selectsv"]'
-
+                #print("::here")
+                #xpath_select_query = '//select[@class="switcher"]/option'
+                #xpath_select_query = "//select/option"
+                #xpath_select_query = '//*[@id="selectsv"]'
+                url_list = re.compile("player_post\('https:\/\/.*?'")
+                for i in url_list:
+                    logger.debug(i)
             logger.debug(f"dev1:: {len(tree.xpath(xpath_select_query))}")
             url2s1 = []
             #url2s2 = [tag.attrib["value"] for tag in tree.xpath(xpath_select_query)]
