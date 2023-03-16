@@ -650,7 +650,7 @@ class LogicLinkkfYommi(object):
                 #xpath_select_query = '//select[@class="switcher"]/option'
                 #xpath_select_query = "//select/option"
                 #xpath_select_query = '//*[@id="selectsv"]'
-                url_list = re.compile("player_post\('https:\/\/.*?'").findall(html)
+                url_list = re.compile("player_post\('https:\/\/.*?'").findall(iframe_url)
                 logger.debug(url_list)
                 for i in url_list:
                     logger.debug(i)
