@@ -650,7 +650,8 @@ class LogicLinkkfYommi(object):
                 #xpath_select_query = '//select[@class="switcher"]/option'
                 #xpath_select_query = "//select/option"
                 #xpath_select_query = '//*[@id="selectsv"]'
-                url_list = re.compile("player_post\('https:\/\/.*?'")
+                url_list = re.compile("player_post\('https:\/\/.*?'").findall(html)
+                logger.debug(url_list)
                 for i in url_list:
                     logger.debug(i)
             logger.debug(f"dev1:: {len(tree.xpath(xpath_select_query))}")
