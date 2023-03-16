@@ -649,6 +649,7 @@ class LogicLinkkfYommi(object):
                 print("::here")
                 xpath_select_query = '//select[@class="switcher"]/option'
                 xpath_select_query = "//select/option"
+                xpath_select_query = '//*[@id="selectsv"]'
 
             logger.debug(f"dev1:: {len(tree.xpath(xpath_select_query))}")
             url2s1 = []
