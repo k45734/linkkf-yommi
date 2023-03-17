@@ -633,7 +633,7 @@ class LogicLinkkfYommi(object):
             # logger.info(html_data)
             while True:
                 try:
-                    html_data = LogicLinkkfYommi.get_html(iframe_url)
+                    html_data = LogicLinkkfYommi.get_html_selenium(iframe_url)
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
                     break
