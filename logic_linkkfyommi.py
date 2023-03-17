@@ -590,19 +590,14 @@ class LogicLinkkfYommi(object):
             except:
                 iframe_url = url
             logger.info(iframe_url)
-            #while True:
-             #   try:
-            header = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5)\AppleWebKit 537.36 (KHTML, like Gecko) Chrome","Accept":"text/html,application/xhtml+xml,application/xml;\q=0.9,imgwebp,*/*;q=0.8"}
-            req = requests.get(iframe_url,headers=header)	
-            if req.status_code != 200:
-                html_data = LogicLinkkfYommi.get_html(iframe_url)
-                logger.debug('URL Error')
-            else:
-                logger.debug(url)
-                html_data = LogicLinkkfYommi.get_html(url)
-            tree = html.fromstring(html_data)
-            logger.debug(html_data)
-            
+            while True:
+                try:
+                    html_data = LogicLinkkfYommi.get_html(url)
+                    tree = html.fromstring(html_data)
+                    logger.debug(html_data)
+                    break
+                except:
+                    pass
             xpath_select_query = '//*[@id="body"]/div/span/center/select/option'
 
             logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
