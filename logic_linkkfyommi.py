@@ -137,10 +137,10 @@ class LogicLinkkfYommi(object):
         from selenium.webdriver.support.ui import WebDriverWait
         from system import SystemLogicSelenium
         from . import plugin
-        if LogicNormal.driver is None:
-           LogicNormal.driver = SystemLogicSelenium.create_driver()
+        if LogicLinkkfYommi.driver is None:
+           LogicLinkkfYommi.driver = SystemLogicSelenium.create_driver()
 
-        driver = LogicNormal.driver
+        driver = LogicLinkkfYommi.driver
         os_platform = platform.system()
 
 
