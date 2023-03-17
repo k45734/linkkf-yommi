@@ -279,7 +279,7 @@ class LogicLinkkfYommi(object):
         user_agents_list = [
             "Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.83 Safari/537.36",
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.51 Safari/537.36",
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
         ]
         # ua = UserAgent(verify_ssl=False)
 
@@ -633,7 +633,7 @@ class LogicLinkkfYommi(object):
             # logger.info(html_data)
             while True:
                 try:
-                    html_data = LogicLinkkfYommi.get_html_cloudflare(iframe_url)
+                    html_data = LogicLinkkfYommi.get_html(iframe_url)
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
                     break
