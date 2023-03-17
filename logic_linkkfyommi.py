@@ -595,6 +595,8 @@ class LogicLinkkfYommi(object):
                     html_data = LogicLinkkfYommi.get_html(iframe_url)
                     if html_data.status_code != 200:
                         logger.debug('URL Error')
+                    else:
+                        logger.debug(url)
                         html_data = LogicLinkkfYommi.get_html(url)
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
