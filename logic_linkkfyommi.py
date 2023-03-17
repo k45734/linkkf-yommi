@@ -260,12 +260,21 @@ class LogicLinkkfYommi(object):
         #     delay=10,
         # )
         # scraper = cloudscraper.create_scraper(sess=re_sess)
-        scraper = cloudscraper.create_scraper(delay=10, sess=LogicLinkkfYommi.session, {'browser': 'firefox','platform': 'windows','mobile': False},)
+        scraper = cloudscraper.create_scraper(
+            # debug=True,
+            delay=10,
+            sess=LogicLinkkfYommi.session,
+            {'browser': 'firefox','platform': 'windows','mobile': False},
+        )
         # print(scraper.get(url, headers=LogicLinkkfYommi.headers).content)
         # print(scraper.get(url).content)
         # return scraper.get(url, headers=LogicLinkkfYommi.headers).content
         #logger.debug(LogicLinkkfYommi.headers)
-        return scraper.get(url,headers=LogicLinkkfYommi.headers,timeout=10,).content.decode("utf8", errors="replace")
+        return scraper.get(
+            url,
+            headers=LogicLinkkfYommi.headers,
+            timeout=10,
+        ).content.decode("utf8", errors="replace")
 
     @staticmethod
     def get_video_url_from_url(url, url2):
@@ -577,7 +586,7 @@ class LogicLinkkfYommi(object):
             # logger.info(html_data)
             while True:
                 try:
-                    html_data = LogicLinkkfYommi.get_html_cloudflare(iframe_url)
+                    html_data = LogicLinkkfYommi.get_html(iframe_url)
                     tree = html.fromstring(html_data)
                     logger.debug(html_data)
                     break
