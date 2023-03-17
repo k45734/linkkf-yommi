@@ -599,7 +599,8 @@ class LogicLinkkfYommi(object):
                 except:
                     pass
             xpath_select_query = '//*[@id="body"]/div/span/center/select/option'
-
+            pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
+            logger.debug(pattern)
             logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
 
             if len(tree.xpath(xpath_select_query)) > 0:
