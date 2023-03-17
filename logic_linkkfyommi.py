@@ -134,59 +134,15 @@ class LogicLinkkfYommi(object):
 
     @staticmethod
     def get_html_selenium(url, referer=None):
-        from selenium.webdriver.common.by import By
+        from selenium.webdriver.support.ui import WebDriverWait
+        from system import SystemLogicSelenium
+        from . import plugin
+        if LogicNormal.driver is None:
+           LogicNormal.driver = SystemLogicSelenium.create_driver()
 
-        from selenium import webdriver
-        from selenium_stealth import stealth
-        from webdriver_manager.chrome import ChromeDriverManager
-
-        from seleniumwire import webdriver
-        import time
-        import platform
-        import os
-
+        driver = LogicNormal.driver
         os_platform = platform.system()
 
-        # print(os_platform)
-
-        options = webdriver.ChromeOptions()
-        # 크롬드라이버 헤더 옵션추가 (리눅스에서 실행시 필수)
-        options.add_argument("start-maximized")
-        options.add_argument("--headless")
-        options.add_argument("--no-sandbox")
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option("useAutomationExtension", False)
-
-        if os_platform == "Darwin":
-            # 크롬드라이버 경로
-            driver_bin_path = os.path.join(
-                os.path.dirname(__file__), "bin", f"{os_platform}"
-            )
-            driver_path = f"{driver_bin_path}/chromedriver"
-            driver = webdriver.Chrome(
-                executable_path=driver_path, chrome_options=options
-            )
-            # driver = webdriver.Chrome(
-            #     ChromeDriverManager().install(), chrome_options=options
-            # )
-        elif os_platform == "Linux":
-            driver_bin_path = os.path.join(
-                os.path.dirname(__file__), "bin", f"{os_platform}"
-            )
-            driver_path = f"{driver_bin_path}/chromedriver"
-            driver = webdriver.Chrome(
-                executable_path=driver_path, chrome_options=options
-            )
-
-        else:
-            # driver_bin_path = os.path.join(
-            #     os.path.dirname(__file__), "bin", f"{os_platform}"
-            # )
-            # driver_path = f"{driver_bin_path}/chromedriver"
-            # driver = webdriver.Chrome(executable_path=driver_path, chrome_options=options)
-            driver = webdriver.Chrome(
-                ChromeDriverManager().install(), chrome_options=options
-            )
 
         LogicLinkkfYommi.headers["Referer"] = f"{ModelSetting.get('linkkf_url')}"
 
