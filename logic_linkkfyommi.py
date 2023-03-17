@@ -260,16 +260,18 @@ class LogicLinkkfYommi(object):
         #     delay=10,
         # )
         # scraper = cloudscraper.create_scraper(sess=re_sess)
-        #scraper = cloudscraper.create_scraper(
+        scraper = cloudscraper.create_scraper(
             # debug=True,
-        #    delay=10,
-        #    sess=LogicLinkkfYommi.session,
-         #   browser={
-         #       "custom": "linkkf",
-		#		'browser': 'firefox','platform': 'windows','mobile': False,
-         #   },
-        #)
-        scraper = cloudscraper.create_scraper(browser={'browser': 'firefox','platform': 'windows','mobile': False})
+            delay=30,
+            sess=LogicLinkkfYommi.session,
+            browser={
+                "custom": "linkkf",
+				'browser': 'firefox',
+				'platform': 'windows',
+				'mobile': False,
+            },
+        )
+        #scraper = cloudscraper.create_scraper(browser={'browser': 'firefox','platform': 'windows','mobile': False})
         # print(scraper.get(url, headers=LogicLinkkfYommi.headers).content)
         # print(scraper.get(url).content)
         # return scraper.get(url, headers=LogicLinkkfYommi.headers).content
