@@ -264,7 +264,10 @@ class LogicLinkkfYommi(object):
             # debug=True,
             delay=10,
             sess=LogicLinkkfYommi.session,
-            {'browser': 'firefox','platform': 'windows','mobile': False},
+            browser={
+                "custom": "linkkf",
+				'browser': 'firefox','platform': 'windows','mobile': False,
+            },
         )
         # print(scraper.get(url, headers=LogicLinkkfYommi.headers).content)
         # print(scraper.get(url).content)
