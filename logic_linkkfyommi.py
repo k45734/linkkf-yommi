@@ -598,25 +598,25 @@ class LogicLinkkfYommi(object):
                     break
                 except:
                     pass
-           # xpath_select_query = '//*[@id="body"]/div/span/center/select/option'
-            pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
+            xpath_select_query = '//select[@class="switcher"]/option'
+            #pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
           #  logger.debug(pattern)
            # logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
 
-            #if len(tree.xpath(xpath_select_query)) > 0:
-           #     pass
-           # else:
-           #     print("::here")
-           #     xpath_select_query = '//select[@class="switcher"]/option'
-           #     xpath_select_query = "//select/option"
+            if len(tree.xpath(xpath_select_query)) > 0:
+                pass
+            else:
+                #print("::here")
+                xpath_select_query = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
 
-           # logger.debug(f"dev1:: {len(tree.xpath(xpath_select_query))}")
+            logger.debug(f"dev1:: {len(tree.xpath(xpath_select_query))}")
             url2s1 = []
-            #url2s2 = [tag.attrib["value"] for tag in tree.xpath(xpath_select_query)]
             #k40chan 영상주소는 ffmpeg 로 실패함 어떤 코드가 들어가야 되는지 몰라서 제외하고 영상소스를 선택할수 없어서 램덤으로 선택하여 영상소스를 선택하고 영상소가 죽었을경우에 유용?
-            for tag in pattern:
-                #url2s2 = tag.attrib["value"]
-                url2s2 = tag.replace("'", "").strip()
+            for tag in xpath_select_query:
+                try:
+                    url2s2 = tag.attrib["value"]
+                except:
+                    url2s2 = tag.replace("'", "").strip()
                 #if 'k40chan' in url2s2:
                 #    pass
                 #elif 'k39aha' in url2s2:
