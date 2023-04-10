@@ -616,7 +616,7 @@ class LogicLinkkfYommi(object):
                 #try:
                 #    url2s2 = tag.attrib["value"]
                # except:
-                url2s2 = tag.replace("'", "").strip()
+                url2s2 = tag[1:-1].strip()
                 #if 'k40chan' in url2s2:
                 #    pass
                 #elif 'k39aha' in url2s2:
