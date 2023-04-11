@@ -622,6 +622,8 @@ class LogicLinkkfYommi(object):
                 #elif 'k39aha' in url2s2:
                 if 'ds' in url2s2:
                     pass
+                elif 'https://kfani.me/k/hls' in url2s2:
+                    pass
                 else:
                     url2s1.append(url2s2)
 
