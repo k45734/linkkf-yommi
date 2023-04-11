@@ -622,7 +622,7 @@ class LogicLinkkfYommi(object):
                 #elif 'k39aha' in url2s2:
                 if 'ds' in url2s2:
                     pass
-                elif 'https://kfani.me/k/hls' in url2s2:
+                elif 'hls' in url2s2:
                     pass
                 else:
                     url2s1.append(url2s2)
@@ -632,9 +632,12 @@ class LogicLinkkfYommi(object):
 
             video_url = None
             referer_url = None  # dx
-            url2s = random.sample(url2s1, 2)
+            try:
+                url2s = random.sample(url2s1, 2)
+            except:
+                url2s = random.sample(url2s1, 1)
            # url2s = random.choices(url2s1, k=2)
-            logger.info("dx: urls2:: %s", url2s)
+            logger.debug("dx: urls2:: %s", url2s)
             cnt = 1
             for url2 in url2s:
                 logger.debug('%s',url2)
