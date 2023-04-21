@@ -594,7 +594,7 @@ class LogicLinkkfYommi(object):
                 try:
                     html_data = LogicLinkkfYommi.get_html(url)
                     tree = html.fromstring(html_data)
-                    logger.debug(html_data)
+                    #logger.debug(html_data)
                     break
                 except:
                     pass
@@ -629,7 +629,8 @@ class LogicLinkkfYommi(object):
 
             # logger.info('dx: url', url)
             
-
+            if len(url2s1) > 0:
+                sys.exit()
             video_url = None
             referer_url = None  # dx
             try:
