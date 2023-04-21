@@ -603,11 +603,11 @@ class LogicLinkkfYommi(object):
             #logger.debug(pattern)
            # logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
 
-            if len(pattern) > 0:
-                pass
-            else:
+            #if len(pattern) > 0:
+            #    pass
+            #else:
                 #print("::here")
-                pattern = re.compile('"https:\/\/.*?kfani.me\/.*?"').findall(html_data)
+            #    pattern = re.compile('"https:\/\/.*?kfani.me\/.*?"').findall(html_data)
 
             logger.debug(f"dev1:: {len(pattern)}")
             url2s1 = []
@@ -628,9 +628,7 @@ class LogicLinkkfYommi(object):
                     url2s1.append(url2s2)
 
             # logger.info('dx: url', url)
-            
-            if len(url2s1) > 0:
-                sys.exit()
+
             video_url = None
             referer_url = None  # dx
             try:
