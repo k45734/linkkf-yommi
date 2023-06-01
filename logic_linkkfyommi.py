@@ -1331,9 +1331,11 @@ class LogicLinkkfYommi(object):
 
         if ani_url[1] is not None:
             referer = ani_url[1]
+        else:
+            referer = "https://kfani.me"
 
         logger.debug(f"referer:: {referer}")
-        referer = "https://kfani.me"
+        
 
         headers = {
             "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -1341,7 +1343,7 @@ class LogicLinkkfYommi(object):
             "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3554.0 Safari/537.36",
             "Referer": f"{referer}",
         }
-        # logger.debug(headers)
+        logger.debug(headers)
 
         save_path = ModelSetting.get("download_path")
         if ModelSetting.get("auto_make_folder") == "True":
