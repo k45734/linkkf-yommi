@@ -599,7 +599,8 @@ class LogicLinkkfYommi(object):
                 except:
                     pass
             #xpath_select_query = '//select/option'
-            pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
+            #pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
+            pattern = re.compile("player_post\('https:\/\/.*?'").findall(html_data)
             #logger.debug(pattern)
            # logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
 
@@ -616,7 +617,8 @@ class LogicLinkkfYommi(object):
                 #try:
                 #    url2s2 = tag.attrib["value"]
                # except:
-                url2s2 = tag[1:-1]
+                #url2s2 = tag[1:-1]
+                url2s2 = tag[13:-1]
                 #if 'k40chan' in url2s2:
                 #    pass
                 #elif 'k39aha' in url2s2:
