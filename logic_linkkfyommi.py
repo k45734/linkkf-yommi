@@ -1361,8 +1361,7 @@ class LogicLinkkfYommi(object):
         # Todo: 임시 커밋 로직 해결하면 다시 처리
         # if "linkkf.app" in base_url:
         #     base_url = f"{ourls.scheme}://kfani.me"
-        logger.debug(type(ani_url[2]))
-        vtt_url = base_url_vtt + ani_url[2]
+        vtt_url = base_url_vtt[0] + ani_url[2]
         # https://kfani.me/s/354776m5.vtt
         #vtt_url = "https://kfani.me" + ani_url[2]
 
