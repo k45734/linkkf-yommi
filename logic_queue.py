@@ -276,10 +276,10 @@ class LogicQueue(object):
                 from framework.common.util import write_file, convert_vtt_to_srt
                 from urllib import parse
 
-                ourls = parse.urlparse(entity.url[1])
+                #ourls = parse.urlparse(entity.url[1])
                 # print(ourls)
                 # logger.info('ourls:::>', ourls)
-                base_url = f"{ourls.scheme}://{ourls.netloc}"
+                #base_url = f"{ourls.scheme}://{ourls.netloc}"
                 # logger.info('base_url:::>', base_url)
 
                 # Todo: 임시 커밋 로직 해결하면 다시 처리
@@ -288,8 +288,11 @@ class LogicQueue(object):
 
                 # vtt_url = base_url + entity.url[2]
                 # 임시
-                base_url = "https://kfani.me"
-                vtt_url = base_url + entity.url[2]
+                #base_url = "https://kfani.me"
+                #vtt_url = base_url + entity.url[2]
+                ret = re.compile(r'(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}')
+                base_url_vtt = ret.match(entity.url[1])
+                vtt_url = base_url_vtt[0] + entity.url[2]
                 logger.info('%s',entity.url[2])
                 logger.debug(f"srt:url => {vtt_url}")
                 srt_filepath = os.path.join(
