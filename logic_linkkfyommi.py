@@ -1354,7 +1354,7 @@ class LogicLinkkfYommi(object):
         # print(ourls)
         # logger.info('ourls:::>', ourls)
         base_url = f"{ourls.scheme}://{ourls.netloc}"
-        # logger.info('base_url:::>', base_url)
+        logger.info('base_url:::>', base_url)
 
         # Todo: 임시 커밋 로직 해결하면 다시 처리
         # if "linkkf.app" in base_url:
