@@ -1357,16 +1357,16 @@ class LogicLinkkfYommi(object):
         # logger.info('base_url:::>', base_url)
         ret = re.compile(r'(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}')
         base_url_vtt = ret.match(ani_url[1])
-        logger.debug(base_url_vtt[0])
+        
         # Todo: 임시 커밋 로직 해결하면 다시 처리
         # if "linkkf.app" in base_url:
         #     base_url = f"{ourls.scheme}://kfani.me"
 
-        # vtt_url = base_url + ani_url[2]
+        vtt_url = base_url_vtt + ani_url[2]
         # https://kfani.me/s/354776m5.vtt
-        vtt_url = "https://kfani.me" + ani_url[2]
+        #vtt_url = "https://kfani.me" + ani_url[2]
 
-        # logger.debug(f"srt:url => {vtt_url}")
+        logger.debug(f"srt:url => {vtt_url}")
         srt_filepath = os.path.join(
             save_path, info["filename"].replace(".mp4", ".ko.srt")
         )
