@@ -1349,13 +1349,15 @@ class LogicLinkkfYommi(object):
             save_path = program_path
             if ModelSetting.get("linkkf_auto_make_season_folder"):
                 save_path = os.path.join(save_path, "Season %s" % int(info["season"]))
-        logger.debug('base_url:::>', ani_url[1])
-        ourls = parse.urlparse(ani_url[1])
+
+        #ourls = parse.urlparse(ani_url[1])
         # print(ourls)
         # logger.info('ourls:::>', ourls)
-        base_url = f"{ourls.scheme}://{ourls.netloc}"
-        logger.debug('base_url:::>', base_url)
-
+        #base_url = f"{ourls.scheme}://{ourls.netloc}"
+        # logger.info('base_url:::>', base_url)
+        ret = re.compile(r'(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}')
+        base_url_vtt = ret.match(ani_url[1])
+        logger.debug(base_url_vtt[0])
         # Todo: 임시 커밋 로직 해결하면 다시 처리
         # if "linkkf.app" in base_url:
         #     base_url = f"{ourls.scheme}://kfani.me"
