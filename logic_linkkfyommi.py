@@ -982,12 +982,13 @@ class LogicLinkkfYommi(object):
                 data["total_page"] = 0
             data["episode_count"] = len(tmp_items)
             data["episode"] = []
-
+            logger.debug(data["total_page"],data["episode_count"],data["episode"])
             for item in tmp_items:
                 entity = dict()
                 entity["link"] = item.xpath(".//a/@href")[0]
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
                 entity["title"] = item.xpath(title_xpath)[0].strip()
+                logger.debug(entity["title"])
                 entity["image_link"] = item.xpath("./a/@data-original")[0]
                 entity["chapter"] = (
                     item.xpath("./a/span//text()")[0]
