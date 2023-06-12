@@ -987,9 +987,7 @@ class LogicLinkkfYommi(object):
                 entity = dict()
                 entity["link"] = item.xpath(".//a/@href")[0]
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
-                logger.debug(entity["code"])
                 entity["title"] = item.xpath(title_xpath)[0].strip()
-                logger.debug(entity["title"])
                 entity["image_link"] = item.xpath("./a/@data-original")[0]
                 entity["chapter"] = (
                     item.xpath("./a/span//text()")[0]
@@ -1263,7 +1261,7 @@ class LogicLinkkfYommi(object):
                 # entity['code'] = data['code'] + '_' +str(idx)
 
                 episode_code = None
-                # logger.debug(f"m_obj::> {m_obj}")
+                logger.debug(f"m_obj::> {m_obj}")
                 if m_obj is not None:
                     episode_code = m_obj.group(1)
                     entity["code"] = data["code"] + episode_code.zfill(4)
