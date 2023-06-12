@@ -987,6 +987,7 @@ class LogicLinkkfYommi(object):
                 entity = dict()
                 entity["link"] = item.xpath(".//a/@href")[0]
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
+                 logger.debug(entity["code"])
                 entity["title"] = item.xpath(title_xpath)[0].strip()
                 logger.debug(entity["title"])
                 entity["image_link"] = item.xpath("./a/@data-original")[0]
@@ -1092,7 +1093,6 @@ class LogicLinkkfYommi(object):
                 entity["link"] = item.xpath(".//a/@href")[0]
                 # logger.debug(f"link()::entity['link'] => {entity['link']}")
                 entity["code"] = re.search(r"[0-9]+", entity["link"]).group()
-                logger.debug(entity["code"])
                 entity["title"] = item.xpath(title_xpath)[0].strip()
                 entity["image_link"] = item.xpath("./a/@data-original")[0]
                 entity["chapter"] = (
