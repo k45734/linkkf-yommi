@@ -1255,14 +1255,14 @@ class LogicLinkkfYommi(object):
 
                 # 고유id임을 알수 없는 말도 안됨..
                 # 에피소드 코드가 고유해야 상태값 갱신이 제대로 된 값에 넣어짐
-                p = re.compile(r"([0-9]+)화?")
+                p = re.compile(r"([0-9.]+)화?")
                 m_obj = p.match(entity["title"])
                 # logger.info(m_obj.group())
                 # entity['code'] = data['code'] + '_' +str(idx)
 
                 episode_code = None
-                logger.debug(f"m_obj::> {m_obj.group(0)} {data['code']}")
-                logger.debug(f"m_obj::> {m_obj.group(1)} {data['code']}")
+                logger.debug(f"m_obj::> {m_obj.group(0)} {data['title']}")
+                logger.debug(f"m_obj::> {m_obj.group(1)} {data['title']}")
                 if m_obj is not None:
                     episode_code = m_obj.group(1)
                     entity["code"] = data["code"] + episode_code.zfill(4)
