@@ -1296,7 +1296,7 @@ class LogicLinkkfYommi(object):
                 # entity['season'] = data['season']
                 # logger.debug(f"save_folder::2> {data['save_folder']}")
                 entity["filename"] = LogicLinkkfYommi.get_filename(
-                    data["save_folder"], data["season"], data["title"]
+                    data["save_folder"], data["season"], entity["title"]
                 )
                 idx = idx + 1
             data["ret"] = True
