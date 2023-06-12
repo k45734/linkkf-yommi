@@ -1323,7 +1323,7 @@ class LogicLinkkfYommi(object):
     def get_filename(maintitle, season, title):
         try:
             # logger.debug("get_filename()===")
-            # logger.info("title:: %s", title)
+            logger.info("title:: %s", title)
             # logger.info("maintitle:: %s", maintitle)
             match = re.compile(
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
