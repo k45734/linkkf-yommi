@@ -1328,14 +1328,14 @@ class LogicLinkkfYommi(object):
             ).search(title)
             if match:
                 epi_no = int(match.group("epi_no"))
-                if epi_no == int(title):
-                    epi_no = '%.2f'%int(title)
                 logger.debug("epi_no: %s %s", int(epi_no), int(title))
-                if epi_no < 10:
-                    epi_no = "0%s" % epi_no
+                if epi_no == int(title):
+                    if epi_no < 10:
+                        epi_no = "0%s" % epi_no
+                    else:
+                        epi_no = "%s" % epi_no
                 else:
-                    epi_no = "%s" % epi_no
-
+                    epi_no = '%.1f'%int(title)
                 if int(season) < 10:
                     season = "0%s" % season
                 else:
