@@ -1261,8 +1261,8 @@ class LogicLinkkfYommi(object):
                 # entity['code'] = data['code'] + '_' +str(idx)
 
                 episode_code = None
-                logger.debug(f"m_obj::> {m_obj.group(0)} {data['title']} entity['title']")
-                logger.debug(f"m_obj::> {m_obj.group(1)} {data['title']}")
+                logger.debug(f"m_obj::> {m_obj.group(0)} {data['title']} {entity['title']}")
+                logger.debug(f"m_obj::> {m_obj.group(1)} {data['title']} {entity['title']}")
                 if m_obj is not None:
                     episode_code = m_obj.group(1)
                     entity["code"] = data["code"] + episode_code.zfill(4)
