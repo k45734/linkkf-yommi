@@ -1432,6 +1432,7 @@ class LogicLinkkfYommi(object):
             if LogicLinkkfYommi.current_data is not None:
                 for t in LogicLinkkfYommi.current_data["episode"]:
                     if t["code"] == code:
+                        logger.debug(t["code"])
                         return t
         except Exception as e:
             logger.error("Exception:%s", e)
