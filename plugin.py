@@ -324,6 +324,7 @@ def ajax(sub):
             from .logic_queue import LogicQueue
 
             code = request.form["code"]
+            logger.debug(code)
             code_list = code.split(",")
             count = 0
             for c in code_list:
