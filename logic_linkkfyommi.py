@@ -1269,7 +1269,7 @@ class LogicLinkkfYommi(object):
                 else:
                     entity["code"] = data["code"]
 
-                # logger.info('episode_code', episode_code)
+                logger.debug('episode_code', entity["code"])
                 # entity["url"] = t.attrib["href"]
                 check_url = t["href"]
                 if check_url.startswith("http"):
