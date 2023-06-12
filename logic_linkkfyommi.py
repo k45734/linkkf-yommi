@@ -1330,6 +1330,7 @@ class LogicLinkkfYommi(object):
             ).search(title)
             if match:
                 epi_no = int(match.group("epi_no"))
+                logger.debug("epi_no: %s",epi_no)
                 if epi_no < 10:
                     epi_no = "0%s" % epi_no
                 else:
