@@ -1336,14 +1336,13 @@ class LogicLinkkfYommi(object):
                         else:
                             epi_no = "%s" % epi_no
                 except:
-                    #logger.debug("epi_no: %s %s", int(epi_no), float(title))
-                    #if epi_no < 10:
-                    #    #epi_no = '0%.1f'%float(title)
+                    logger.debug("epi_no: %s %s", int(epi_no), float(title))
+                    if epi_no < 10:
+                        epi_no = '0%.1f'%float(title)
                     #    epi_no = "0%s-pt1" % epi_no
-                    #else:
-                    #    #epi_no = '%.1f'%float(title)
+                    else:
+                        epi_no = '%.1f'%float(title)
                     #    epi_no = "%s-pt1" % epi_no
-                    pass
                 if int(season) < 10:
                     season = "0%s" % season
                 else:
@@ -1351,7 +1350,10 @@ class LogicLinkkfYommi(object):
 
                 # title_part = match.group('title').strip()
                 # ret = '%s.S%sE%s%s.720p-SA.mp4' % (maintitle, season, epi_no, date_str)
-                ret = "%s.S%sE%s.720p-LK.mp4" % (maintitle, season, epi_no)
+                if '.5' in epi_no:
+                    ret = "%s.S00E%s.720p-LK.mp4" % (maintitle, epi_no)
+				else:
+                    ret = "%s.S%sE%s.720p-LK.mp4" % (maintitle, season, epi_no)
             else:
                 logger.debug("NOT MATCH")
                 ret = "%s.720p-LK.mp4" % maintitle
