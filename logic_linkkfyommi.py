@@ -1347,12 +1347,11 @@ class LogicLinkkfYommi(object):
                     season = "0%s" % season
                 else:
                     season = "%s" % season
-
                 # title_part = match.group('title').strip()
                 # ret = '%s.S%sE%s%s.720p-SA.mp4' % (maintitle, season, epi_no, date_str)
                 if '.5' in epi_no:
                     ret = "%s.S00E%s.720p-LK.mp4" % (maintitle, epi_no)
-				else:
+                else:
                     ret = "%s.S%sE%s.720p-LK.mp4" % (maintitle, season, epi_no)
             else:
                 logger.debug("NOT MATCH")
