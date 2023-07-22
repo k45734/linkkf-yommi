@@ -1338,7 +1338,7 @@ class LogicLinkkfYommi(object):
                 elif 'SP' in epi_no_ckeck:
                     tes = epi_no.find('SP')
                     epi_no = epi_no_ckeck[0:tes]
-				else:
+                else:
                     epi_no = int(match.group("epi_no"))
                 try:
                     logger.debug("epi_no: %s %s", int(epi_no), int(title))
