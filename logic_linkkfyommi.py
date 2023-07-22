@@ -1343,7 +1343,8 @@ class LogicLinkkfYommi(object):
                     logger.debug('EP 포함 문자(공백) %s', epi_no)
                 elif 'OVA' in title:
                     tes = title.find('OVA')
-                    if len(tes) == 0:
+                    check = int(tes)
+                    if check == 0:
                         epi_no = total_epi
                     else:
                         epi_no = int(title[0:tes])
