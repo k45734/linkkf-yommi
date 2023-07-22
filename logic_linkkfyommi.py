@@ -1329,6 +1329,7 @@ class LogicLinkkfYommi(object):
             ).search(title)
             if match:
                 epi_no_ckeck = match.group("epi_no")
+                logger.debug('test %s', epi_no_ckeck)
                 if ' ' in epi_no_ckeck:
                     tes = epi_no_ckeck.find(' ')
                     epi_no = epi_no_ckeck[0:tes]
