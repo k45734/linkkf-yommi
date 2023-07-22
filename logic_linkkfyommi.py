@@ -1328,7 +1328,7 @@ class LogicLinkkfYommi(object):
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
             ).search(title)
             if match:
-                epi_no_ckeck = int(match.group("epi_no"))
+                epi_no_ckeck = match.group("epi_no")
                 if ' ' in epi_no_ckeck:
                     tes = epi_no.find(' ')
                     epi_no = epi_no_ckeck[0:tes]
