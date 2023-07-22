@@ -716,13 +716,13 @@ class LogicLinkkfYommi(object):
                 LogicLinkkfYommi.current_data["save_folder"] = new_title
                 program.save_folder = new_title
                 db.session.commit()
-
+                total_epi = None
                 for entity in LogicLinkkfYommi.current_data["episode"]:
                     entity["save_folder"] = new_title
                     entity["filename"] = LogicLinkkfYommi.get_filename(
                         LogicLinkkfYommi.current_data["save_folder"],
                         LogicLinkkfYommi.current_data["season"],
-                        entity["title"],
+                        entity["title"],total_epi
                     )
                 #    tmp = data['filename'].split('.')
                 #    tmp[0] = new_title
@@ -752,12 +752,12 @@ class LogicLinkkfYommi(object):
                 LogicLinkkfYommi.current_data["season"] = season
                 program.season = season
                 db.session.commit()
-
+                total_epi = None
                 for entity in LogicLinkkfYommi.current_data["episode"]:
                     entity["filename"] = LogicLinkkfYommi.get_filename(
                         LogicLinkkfYommi.current_data["save_folder"],
                         LogicLinkkfYommi.current_data["season"],
-                        entity["title"],
+                        entity["title"], total_epi
                     )
                 return LogicLinkkfYommi.current_data
             else:
@@ -1302,7 +1302,7 @@ class LogicLinkkfYommi(object):
                 # entity['season'] = data['season']
                 # logger.debug(f"save_folder::2> {data['save_folder']}")
                 entity["filename"] = LogicLinkkfYommi.get_filename(
-                    data["save_folder"], data["season"], entity["title"]
+                    data["save_folder"], data["season"], entity["title"], len(tags)
                 )
                 idx = idx + 1
             data["ret"] = True
@@ -1326,39 +1326,42 @@ class LogicLinkkfYommi(object):
             return data
 
     @staticmethod
-    def get_filename(maintitle, season, title):
+    def get_filename(maintitle, season, title, total_epi):
         try:
-            logger.debug("get_filename()= %s %s %s",maintitle, season, title)
+            logger.debug("get_filename()= %s %s %s %s",maintitle, season, title, total_epi)
 			
             match = re.compile(
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
             ).search(title)
             if match:
                 epi_no_ckeck = match.group("epi_no")
-                logger.debug('test %s', epi_no_ckeck)
+                logger.debug('EP 문자 %s', epi_no_ckeck)
                 if ' ' in title:
                     tes = title.find(' ')
                     epi_no = int(title[0:tes])
                     title = epi_no
-                    logger.debug('test1 %s', epi_no)
+                    logger.debug('EP 포함 문자(공백) %s', epi_no)
                 elif 'OVA' in title:
                     tes = title.find('OVA')
-                    epi_no = int(title[0:tes])
+                    if len(tes) == 0:
+                        epi_no = total_epi
+                    else:
+                        epi_no = int(title[0:tes])
                     title = epi_no
-                    logger.debug('test2 %s', epi_no)
+                    logger.debug('EP 포함 문자(OVA) %s', epi_no)
                 elif 'SP' in title:
                     tes = title.find('SP')
                     epi_no = int(title[0:tes])
                     title = epi_no
-                    logger.debug('test3 %s', epi_no)
+                    logger.debug('EP 포함 문자 (SP) %s', epi_no)
                 elif '-' in title:
                     tes = title.find('-')
                     epi_no = int(title[0:tes])
                     title = epi_no
-                    logger.debug('test4 %s', epi_no)
+                    logger.debug('EP 포함 문자(-) %s', epi_no)
                 else:
                     epi_no = int(match.group("epi_no"))
-                    logger.debug('test4 %s', epi_no)
+                    logger.debug('EP 문자 %s', epi_no)
                 try:
                     logger.debug("epi_no: %s %s", int(epi_no), int(title))
                     if epi_no == int(title):
