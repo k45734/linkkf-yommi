@@ -1328,7 +1328,23 @@ class LogicLinkkfYommi(object):
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
             ).search(title)
             if match:
-                epi_no = int(match.group("epi_no"))
+                epi_no_ckeck = match.group("epi_no")
+                logger.debug('test %s', epi_no_ckeck)
+                if ' ' in title:
+                    tes = title.find(' ')
+                    epi_no = int(title[0:tes])
+                    logger.debug('test1 %s', epi_no)
+                elif 'OVA' in title:
+                    tes = title.find('OVA')
+                    epi_no = int(title[0:tes])
+                    logger.debug('test2 %s', epi_no)
+                elif 'SP' in title:
+                    tes = title.find('SP')
+                    epi_no = int(title[0:tes])
+                    logger.debug('test3 %s', epi_no)
+                else:
+                    epi_no = int(match.group("epi_no"))
+                    logger.debug('test4 %s', epi_no)
                 try:
                     logger.debug("epi_no: %s %s", int(epi_no), int(title))
                     if epi_no == int(title):
@@ -1338,27 +1354,11 @@ class LogicLinkkfYommi(object):
                             epi_no = "%s" % epi_no
                 except:
                     logger.debug("epi_no: %s %s", int(epi_no), float(title))
-					#epi_no_ckeck = match.group("epi_no")
-                
-                    if ' ' in title:
-                        tes = title.find(' ')
-                        epi_no = int(title[0:tes])
-                        logger.debug('test1 %s', epi_no)
-                    elif 'OVA' in title:
-                        tes = title.find('OVA')
-                        epi_no = int(title[0:tes])
-                        logger.debug('test2 %s', epi_no)
-                    elif 'SP' in title:
-                        tes = title.find('SP')
-                        epi_no = int(title[0:tes])
-                        logger.debug('test3 %s', epi_no)
-                    else:
-                        epi_no = title
                     if epi_no < 10:
-                        epi_no = '0%.1f'%float(epi_no)
+                        epi_no = '0%.1f'%float(title)
                    #    epi_no = "0%s-pt1" % epi_no
                     else:
-                        epi_no = '%.1f'%float(epi_no)
+                        epi_no = '%.1f'%float(title)
                     #    epi_no = "%s-pt1" % epi_no
                 if int(season) < 10:
                     season = "0%s" % season
