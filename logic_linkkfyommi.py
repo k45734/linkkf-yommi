@@ -1331,13 +1331,13 @@ class LogicLinkkfYommi(object):
                 epi_no_ckeck = match.group("epi_no")
                 logger.debug('test %s', epi_no_ckeck)
                 if ' ' in epi_no_ckeck:
-                    tes = epi_no.find(' ')
+                    tes = epi_no_ckeck.find(' ')
                     epi_no = epi_no_ckeck[0:tes]
                 elif 'OVA' in epi_no_ckeck:
-                    tes = epi_no.find('OVA')
+                    tes = epi_no_ckeck.find('OVA')
                     epi_no = epi_no_ckeck[0:tes]
                 elif 'SP' in epi_no_ckeck:
-                    tes = epi_no.find('SP')
+                    tes = epi_no_ckeck.find('SP')
                     epi_no = epi_no_ckeck[0:tes]
                 else:
                     epi_no = int(match.group("epi_no"))
