@@ -1215,7 +1215,7 @@ class LogicLinkkfYommi(object):
                 pass
             else:
                 tags = soup.select("ul > a")
-
+            total_epi_no = len(tags)
             logger.debug(len(tags))
 
             # logger.info("tags", tags)
@@ -1302,9 +1302,10 @@ class LogicLinkkfYommi(object):
                 # entity['season'] = data['season']
                 # logger.debug(f"save_folder::2> {data['save_folder']}")
                 entity["filename"] = LogicLinkkfYommi.get_filename(
-                    data["save_folder"], data["season"], entity["title"], len(tags)
+                    data["save_folder"], data["season"], entity["title"], total_epi_no
                 )
                 idx = idx + 1
+                total_epi_no -= 1
             data["ret"] = True
             # logger.info('data', data)
             LogicLinkkfYommi.current_data = data
@@ -1329,7 +1330,6 @@ class LogicLinkkfYommi(object):
     def get_filename(maintitle, season, title, total_epi):
         try:
             logger.debug("get_filename()= %s %s %s %s",maintitle, season, title, total_epi)
-			
             match = re.compile(
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
             ).search(title)
@@ -1344,7 +1344,7 @@ class LogicLinkkfYommi(object):
                 elif 'OVA' in title:
                     tes = title.find('OVA')
                     if len(tes) == 0:
-                        epi_no = total_epi
+                        epi_no = total_epi_no
                     else:
                         epi_no = int(title[0:tes])
                     title = epi_no
@@ -1390,7 +1390,7 @@ class LogicLinkkfYommi(object):
             else:
                 logger.debug("NOT MATCH")
                 ret = "%s.720p-LK.mp4" % maintitle
-            total_epi -= 1
+           
             return Util.change_text_for_use_filename(ret)
         except Exception as e:
             logger.error("Exception:%s", e)
