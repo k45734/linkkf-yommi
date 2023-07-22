@@ -1390,7 +1390,7 @@ class LogicLinkkfYommi(object):
             else:
                 logger.debug("NOT MATCH")
                 ret = "%s.720p-LK.mp4" % maintitle
-
+            total_epi -= 1
             return Util.change_text_for_use_filename(ret)
         except Exception as e:
             logger.error("Exception:%s", e)
