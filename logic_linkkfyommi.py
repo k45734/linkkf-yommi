@@ -1346,17 +1346,17 @@ class LogicLinkkfYommi(object):
                     epi_no = int(match.group("epi_no"))
                     logger.debug('test4 %s', epi_no)
                 try:
-                    logger.debug("epi_no: %s %s", int(epi_no), int(title))
-                    if epi_no == int(title):
-                        if epi_no < 10:
-                            epi_no = "0%s" % epi_no
-                        else:
-                            epi_no = "%s" % epi_no
+                    #logger.debug("epi_no: %s %s", int(epi_no), int(title))
+                    #if epi_no == int(title):
+                    if epi_no < 10:
+                        epi_no = "0%s" % epi_no
+                    else:
+                        epi_no = "%s" % epi_no
                 except:
                     logger.debug("epi_no: %s %s", int(epi_no), float(title))
                     if epi_no < 10:
                         epi_no = '0%.1f'%float(title)
-                    #    epi_no = "0%s-pt1" % epi_no
+                   #    epi_no = "0%s-pt1" % epi_no
                     else:
                         epi_no = '%.1f'%float(title)
                     #    epi_no = "%s-pt1" % epi_no
