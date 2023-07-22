@@ -1344,7 +1344,7 @@ class LogicLinkkfYommi(object):
                 elif 'OVA' in title:
                     tes = title.find('OVA')
                     if len(tes) == 0:
-                        epi_no = total_epi_no
+                        epi_no = total_epi
                     else:
                         epi_no = int(title[0:tes])
                     title = epi_no
