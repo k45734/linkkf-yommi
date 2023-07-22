@@ -1257,7 +1257,7 @@ class LogicLinkkfYommi(object):
                 # 에피소드 코드가 고유해야 상태값 갱신이 제대로 된 값에 넣어짐
                 p = re.compile(r"([0-9.]+)화?")
                 m_obj = p.match(entity["title"])
-                logger.debug(m_obj.group())
+                logger.debug(entity["title"])
                 # entity['code'] = data['code'] + '_' +str(idx)
 
                 episode_code = None
