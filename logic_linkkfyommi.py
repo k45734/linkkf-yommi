@@ -1345,6 +1345,11 @@ class LogicLinkkfYommi(object):
                     epi_no = int(title[0:tes])
                     title = epi_no
                     logger.debug('test3 %s', epi_no)
+                elif '-' in title:
+                    tes = title.find('-')
+                    epi_no = int(title[0:tes])
+                    title = epi_no
+                    logger.debug('test4 %s', epi_no)
                 else:
                     epi_no = int(match.group("epi_no"))
                     logger.debug('test4 %s', epi_no)
