@@ -1334,60 +1334,65 @@ class LogicLinkkfYommi(object):
                 r"(?P<title>.*?)\s?((?P<season>\d+)기)?\s?((?P<epi_no>\d+)화?)"
             ).search(title)
             if match:
-                epi_no_ckeck = match.group("epi_no")
-                logger.debug('EP 문자 %s', epi_no_ckeck)
-                if ' ' in title:
-                    tes = title.find(' ')
-                    epi_no = int(title[0:tes])
-                    title = epi_no
-                    logger.debug('EP 포함 문자(공백) %s', epi_no)
-                elif 'OVA' in title:
-                    tes = title.find('OVA')
-                    check = int(tes)
-                    if check == 0:
-                        epi_no = total_epi
-                    else:
-                        epi_no = int(title[0:tes])
-                    title = epi_no
-                    logger.debug('EP 포함 문자(OVA) %s', epi_no)
-                elif 'SP' in title:
-                    tes = title.find('SP')
-                    epi_no = int(title[0:tes])
-                    title = epi_no
-                    logger.debug('EP 포함 문자 (SP) %s', epi_no)
-                elif '-' in title:
-                    tes = title.find('-')
-                    epi_no = int(title[0:tes])
-                    title = epi_no
-                    logger.debug('EP 포함 문자(-) %s', epi_no)
-                else:
-                    epi_no = int(match.group("epi_no"))
-                    logger.debug('EP 문자 %s', epi_no)
-                try:
-                    logger.debug("epi_no: %s %s", int(epi_no), int(title))
-                    if epi_no == int(title):
-                        if epi_no < 10:
-                            epi_no = "0%s" % epi_no
-                        else:
-                            epi_no = "%s" % epi_no
-                except:
-                    logger.debug("epi_no: %s %s", int(epi_no), float(title))
-                    if epi_no < 10:
-                        epi_no = '0%.1f'%float(title)
+                #epi_no_ckeck = match.group("epi_no")
+                #logger.debug('EP 문자 %s', epi_no_ckeck)
+                #if ' ' in title:
+                #    tes = title.find(' ')
+                #    epi_no = int(title[0:tes])
+                #    title = epi_no
+                #    logger.debug('EP 포함 문자(공백) %s', epi_no)
+                #elif 'OVA' in title:
+                #    tes = title.find('OVA')
+                #    check = int(tes)
+                #    if check == 0:
+                #        epi_no = total_epi
+                #    else:
+                #        epi_no = int(title[0:tes])
+                #    title = epi_no
+                #    logger.debug('EP 포함 문자(OVA) %s', epi_no)
+                #elif 'SP' in title:
+                #    tes = title.find('SP')
+                #    epi_no = int(title[0:tes])
+                #    title = epi_no
+                #    logger.debug('EP 포함 문자 (SP) %s', epi_no)
+                #elif '-' in title:
+                #    tes = title.find('-')
+                #    epi_no = int(title[0:tes])
+                #    title = epi_no
+                #    logger.debug('EP 포함 문자(-) %s', epi_no)
+                #else:
+                #    epi_no = int(match.group("epi_no"))
+                #    logger.debug('EP 문자 %s', epi_no)
+                #try:
+                #    logger.debug("epi_no: %s %s", int(epi_no), int(title))
+                #    if epi_no == int(title):
+                #        if epi_no < 10:
+                #            epi_no = "0%s" % epi_no
+                #        else:
+                #            epi_no = "%s" % epi_no
+                #except:
+                #    logger.debug("epi_no: %s %s", int(epi_no), float(title))
+                #    if epi_no < 10:
+                #        epi_no = '0%.1f'%float(title)
                    #    epi_no = "0%s-pt1" % epi_no
-                    else:
-                        epi_no = '%.1f'%float(title)
+                #    else:
+                #        epi_no = '%.1f'%float(title)
                     #    epi_no = "%s-pt1" % epi_no
+                epi_no = total_epi
+                if epi_no < 10:
+                    epi_no = "0%s" % epi_no
+                else:
+                    epi_no = "%s" % epi_no
                 if int(season) < 10:
                     season = "0%s" % season
                 else:
                     season = "%s" % season
                 # title_part = match.group('title').strip()
                 # ret = '%s.S%sE%s%s.720p-SA.mp4' % (maintitle, season, epi_no, date_str)
-                if '.5' in epi_no:
-                    ret = "%s.S00E%s.720p-LK.mp4" % (maintitle, epi_no)
-                else:
-                    ret = "%s.S%sE%s.720p-LK.mp4" % (maintitle, season, epi_no)
+                #if '.5' in epi_no:
+                #    ret = "%s.S00E%s.720p-LK.mp4" % (maintitle, epi_no)
+                #else:
+                ret = "%s.S%sE%s.720p-LK.mp4" % (maintitle, season, epi_no)
             else:
                 logger.debug("NOT MATCH")
                 ret = "%s.720p-LK.mp4" % maintitle
