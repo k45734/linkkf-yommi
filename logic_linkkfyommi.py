@@ -658,6 +658,8 @@ class LogicLinkkfYommi(object):
                     pass
                 elif 'hls' in url2s2:
                     pass
+                elif 'subkf' in url2s2:
+                    pass
                 else:
                     url2s1.append(url2s2)
 
