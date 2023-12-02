@@ -646,6 +646,7 @@ class LogicLinkkfYommi(object):
             url2s1 = []
             #k40chan 영상주소는 ffmpeg 로 실패함 어떤 코드가 들어가야 되는지 몰라서 제외하고 영상소스를 선택할수 없어서 램덤으로 선택하여 영상소스를 선택하고 영상소가 죽었을경우에 유용?
             for tag in pattern:
+                logger.debug('%s',tag)
                 #try:
                 #    url2s2 = tag.attrib["value"]
                # except:
