@@ -667,7 +667,7 @@ class LogicLinkkfYommi(object):
             for value in url2s1:
                 if value not in result:
                     result.append(value)
-            # logger.info('dx: url', url)
+            logger.debug(f"last_url:: {len(result)}")
 
             video_url = None
             referer_url = None  # dx
