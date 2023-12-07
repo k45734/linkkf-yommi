@@ -663,15 +663,18 @@ class LogicLinkkfYommi(object):
                     pass
                 else:
                     url2s1.append(url2s2)
-
+            result = []
+            for value in url2s1:
+                if value not in result:
+                    result.append(value)
             # logger.info('dx: url', url)
 
             video_url = None
             referer_url = None  # dx
             try:
-                url2s = random.sample(url2s1, 2)
+                url2s = random.sample(result, 2)
             except:
-                url2s = random.sample(url2s1, 1)
+                url2s = random.sample(result, 1)
            # url2s = random.choices(url2s1, k=2)
             logger.debug("dx: urls2:: %s", url2s)
             cnt = 1
