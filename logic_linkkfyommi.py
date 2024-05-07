@@ -438,6 +438,37 @@ class LogicLinkkfYommi(object):
 
                 else:
                     logger.error("새로운 유형의 url 발생! %s %s %s" % (url, url2, url3))
+
+            elif "myani" in url2:
+                logger.deubg("myani routine")
+                # myani 계열 처리 => URL 리스트를 받아오고, 하나 골라 방문 해서 m3u8을 받아온다.
+                referer_url = url2
+                data2 = LogicLinkkfYommi.get_html(url2)
+                # print(data2)
+                regex = r"cat1 = [^\[]*([^\]]*)"
+                cat = re.findall(regex, data2)[0]
+                # logger.info("cat: %s", cat)
+                regex = r"\"([^\"]*)\""
+                url3s = re.findall(regex, cat)
+                url3 = random.choice(url3s)
+                # logger.info("url3: %s", url3)
+                # logger.info("download url : %s , url3 : %s" % (url, url3))
+                if "kftv" in url3:
+                    return LogicLinkkfYommi.get_video_url_from_url(url2, url3)
+                elif url3.startswith("/"):
+                    url3 = urlparse.urljoin(url2, url3)
+                    print("url3 = ", url3)
+                    LogicLinkkfYommi.referer = url2
+                    data3 = LogicLinkkfYommi.get_html(url3)
+                    # logger.info('data3: %s', data3)
+                    # regex2 = r'"([^\"]*m3u8)"'
+                    regex2 = r'"([^\"]*mp4|m3u8)"'
+                    video_url = re.findall(regex2, data3)[0]
+                    # logger.info('video_url: %s', video_url)
+                    referer_url = url3
+
+                else:
+                    logger.error("새로운 유형의 url 발생! %s %s %s" % (url, url2, url3))
             elif "kakao" in url2:
                 # kakao 계열 처리, 외부 API 이용
                 payload = {"inputUrl": url2}
