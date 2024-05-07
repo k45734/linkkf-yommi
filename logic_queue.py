@@ -292,7 +292,10 @@ class LogicQueue(object):
                 #vtt_url = base_url + entity.url[2]
                 ret = re.compile(r'(http(s)?:\/\/)([a-z0-9\w]+\.*)+[a-z0-9]{2,4}')
                 base_url_vtt = ret.match(entity.url[1])
-                vtt_url = base_url_vtt[0] + entity.url[2]
+                if 'https' in entity.url[2]:
+                    vtt_url = entity.url[2]
+                else:
+                    vtt_url = base_url_vtt[0] + entity.url[2]
                 logger.info('%s',entity.url[2])
                 logger.debug(f"srt:url => {vtt_url}")
                 srt_filepath = os.path.join(
