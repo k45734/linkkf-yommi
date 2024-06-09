@@ -454,6 +454,8 @@ class LogicLinkkfYommi(object):
                     temp_url = re.findall(regex3, data)
                 if '\\n' in temp_url:
                     temp_url2 = temp_url.replace('\\n', '')
+                else:
+                    temp_url2 = temp_url
                 logger.info("temp_url: data", temp_url2)
                 video_url = ""
                 ref = "https://kfani.me"
