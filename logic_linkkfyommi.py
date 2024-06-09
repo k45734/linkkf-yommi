@@ -443,7 +443,7 @@ class LogicLinkkfYommi(object):
                 # myani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" myani routine=================================")
                 LogicLinkkfYommi.referer = url2
-                # logger.debug(f"url2: {url2}")
+                logger.info(f"myani url: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
                 # logger.info("dx: data", data)
                 regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
@@ -452,7 +452,7 @@ class LogicLinkkfYommi(object):
                     temp_url = re.findall(regex2, data)[0]
                 except:
                     temp_url = re.findall(regex3, data)
-                logger.debug("temp_url: data", temp_url)
+                logger.info("temp_url: data", temp_url)
                 video_url = ""
                 ref = "https://kfani.me"
                 for i in temp_url:
