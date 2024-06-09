@@ -446,20 +446,17 @@ class LogicLinkkfYommi(object):
                 logger.info(f"myani url: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
                 # logger.info("dx: data", data)
-                regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
+                regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
                 try:
                     temp_url = re.findall(regex2, data)[0]
                 except:
                     temp_url = re.findall(regex3, data)
-                if '\\n' in temp_url:
-                    temp_url2 = temp_url.replace('\\n', '')
-                else:
-                    temp_url2 = temp_url
-                logger.info("temp_url: data", temp_url2)
+               
+                logger.info("temp_url: data", temp_url)
                 video_url = ""
                 ref = "https://kfani.me"
-                for i in temp_url2:
+                for i in temp_url:
                     if i is None:
                         continue
                     video_url = i
