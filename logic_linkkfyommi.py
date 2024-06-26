@@ -369,7 +369,8 @@ class LogicLinkkfYommi(object):
                 # logger.debug(f"url2: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
                 # logger.info("dx: data", data)
-                regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
+                #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
+                regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
                 try:
                     temp_url = re.findall(regex2, data)[0]
