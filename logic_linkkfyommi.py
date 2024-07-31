@@ -1208,7 +1208,7 @@ class LogicLinkkfYommi(object):
                     '//div[@class="myui-content__thumb"]/a/@data-original'
                 )
                 # print(tree.xpath('//div[@class="myui-content__detail"]/text()'))
-                if len(tree.xpath('//div[@class="myui-content__detail"]/text()')) > 3:
+                if (len(tree.xpath('//div[@class="myui-content__detail"]/text()')) > 3):
                     data["detail"] = [
                         {
                             "info": tree.xpath(
