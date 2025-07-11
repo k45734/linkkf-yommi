@@ -377,7 +377,7 @@ class LogicLinkkfYommi(object):
                     temp_url = re.findall(regex2, data)[0]
                 except:
                     temp_url = re.findall(regex3, data)
-                logger.debug("temp_url: data", temp_url)
+                logger.debug("temp_url: %s", temp_url)
                 video_url = ""
                 ref = "https://kfani.me"
                 for i in temp_url:
