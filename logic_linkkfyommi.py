@@ -382,6 +382,8 @@ class LogicLinkkfYommi(object):
                 ref = "https://kfani.me"
                 for i in temp_url:
                     logger.debug("temp : %s",len(temp_url))
+                    logger.debug("temp 2 : %s",len(i))
+				
                     if i is None:
                         logger.debug("temp_url i : %s",i)
                         continue
