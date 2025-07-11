@@ -389,7 +389,7 @@ class LogicLinkkfYommi(object):
                         continue
                     if len(i) == 0:
                         logger.debug("temp_url i pass: %s",i)
-                        pass
+                        continue
                     video_url = i
                     
                 try:
