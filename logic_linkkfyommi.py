@@ -381,7 +381,9 @@ class LogicLinkkfYommi(object):
                 video_url = ""
                 ref = "https://kfani.me"
                 for i in temp_url:
+                    logger.debug("temp : %s",len(temp_url))
                     if i is None:
+                        logger.debug("temp_url i : %s",i)
                         continue
                     video_url = i
                     
