@@ -271,6 +271,10 @@ class LogicLinkkfYommi(object):
 				'mobile': False,
             },
         )
+        proxies = {
+                    'http':ModelSetting.get('proxy'),
+                    'https':ModelSetting.get('proxy'),
+                }
         #scraper = cloudscraper.create_scraper(browser={'browser': 'firefox','platform': 'windows','mobile': False})
         # print(scraper.get(url, headers=LogicLinkkfYommi.headers).content)
         # print(scraper.get(url).content)
@@ -279,7 +283,7 @@ class LogicLinkkfYommi(object):
         return scraper.get(
             url,
             headers=LogicLinkkfYommi.headers,
-            timeout=10,
+            timeout=10,proxies=proxies,
         ).content.decode("utf8", errors="replace")
 
     @staticmethod

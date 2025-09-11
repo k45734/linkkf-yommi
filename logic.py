@@ -31,6 +31,8 @@ logger = get_logger(package_name)
 class Logic(object):
     db_default = {
         "linkkf_url": "https://linkkf.app",
+        'use_proxy' : 'False',
+        "proxy":"",
         "download_path": os.path.join(path_data, "linkkf-yommi"),
         "linkkf_auto_make_folder": "True",
         "linkkf_auto_make_season_folder": "True",
