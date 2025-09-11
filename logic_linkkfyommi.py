@@ -291,8 +291,8 @@ class LogicLinkkfYommi(object):
         video_url = None
         referer_url = None
         vtt_url = None
-        LogicLinkkfYommi.referer = url2
-        # logger.info("dx download url : %s , url2 : %s" % (url, url2))
+        LogicLinkkfYommi.referer = url2        
+        logger.info("dx download url : %s , url2 : %s" % (url, url2))
         # logger.debug(LogicLinkkfYommi.referer)
 
         try:
@@ -372,7 +372,8 @@ class LogicLinkkfYommi(object):
                 LogicLinkkfYommi.referer = url2
                 # logger.debug(f"url2: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
-                # logger.info("dx: data", data)
+                #logger.info(url2)
+                logger.debug("source code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
@@ -380,11 +381,18 @@ class LogicLinkkfYommi(object):
                     temp_url = re.findall(regex2, data)[0]
                 except:
                     temp_url = re.findall(regex3, data)
-                logger.debug("temp_url: data", temp_url)
+                logger.debug("temp_url: %s", temp_url)
                 video_url = ""
                 ref = "https://kfani.me"
                 for i in temp_url:
+                    logger.debug("temp : %s",len(temp_url))
+                    logger.debug("temp 2 : %s",len(i))
+				
                     if i is None:
+                        logger.debug("temp_url i continue : %s",i)
+                        continue
+                    if len(i) == 0:
+                        logger.debug("temp_url i pass: %s",i)
                         continue
                     video_url = i
                     
