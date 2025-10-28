@@ -1268,6 +1268,14 @@ class LogicLinkkfYommi(object):
                 pass
             else:
                 tags = soup.select("ul > a")
+                if len(tags) > 0:
+                    pass
+                else:
+                    tags = soup.select("ul > li > a")
+                    if len(tags) > 0:
+                        pass
+                    else:
+                        tags = soup.select("ul > a")
             total_epi_no = len(tags)
             logger.debug(len(tags))
 
