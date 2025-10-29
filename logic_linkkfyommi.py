@@ -680,16 +680,15 @@ class LogicLinkkfYommi(object):
             #xpath_select_query = '//select/option'
             #pattern = re.compile("'https:\/\/.*?kfani.me\/.*?'").findall(html_data)
             pattern = re.compile("player_post\('https:\/\/.*?'").findall(html_data)
-            #logger.debug(pattern)
+            logger.debug(f"dev1:: {len(pattern)}")
            # logger.debug(f"dev:: {len(tree.xpath(xpath_select_query))}")
 
-            #if len(pattern) > 0:
-            #    pass
-            #else:
+            if len(pattern) > 0:
+                pass
+            else:
                 #print("::here")
-            #    pattern = re.compile('"https:\/\/.*?kfani.me\/.*?"').findall(html_data)
-
-            logger.debug(f"dev1:: {len(pattern)}")
+                pattern = re.compile('data-src="https:\/\/.*?"').findall(html_data)
+                logger.debug(f"dev1_2:: {len(pattern)}")
             url2s1 = []
             #k40chan 영상주소는 ffmpeg 로 실패함 어떤 코드가 들어가야 되는지 몰라서 제외하고 영상소스를 선택할수 없어서 램덤으로 선택하여 영상소스를 선택하고 영상소가 죽었을경우에 유용?
             for tag in pattern:
