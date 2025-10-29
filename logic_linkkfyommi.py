@@ -1312,8 +1312,6 @@ class LogicLinkkfYommi(object):
                     "title": t.text.strip(),
                 # "title": t.text_content().strip(),
                 }
-                except:
-                    pass
                 # entity['code'] = re1.search(t.attrib['href']).group('code')
 
                 # logger.debug(f"title ::>{entity['title']}")
