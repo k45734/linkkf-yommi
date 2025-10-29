@@ -1277,7 +1277,7 @@ class LogicLinkkfYommi(object):
                     ch1 = aa.match(check)
                     if len(tags) > 0:
                         pass
-                    elif ch1 == None
+                    elif ch1 == None:
                         pass
                     else:
                         tags = soup.select("ul > a")
@@ -1286,7 +1286,7 @@ class LogicLinkkfYommi(object):
                         ch1 = aa.match(check)
                         if len(tags) > 0:
                             pass
-                        elif ch1 == None
+                        elif ch1 == None:
                             pass
                         else:
                             pass
