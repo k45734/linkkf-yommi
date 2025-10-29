@@ -1271,25 +1271,13 @@ class LogicLinkkfYommi(object):
                 if len(tags) > 0:
                     pass
                 else:
-                    tags = soup.select("ul > li > a")
-                    check = tags.text.strip()
-                    aa = re.compile(r"([0-9.]+)화?")
-                    ch1 = aa.match(check)
+                    ep_tags = tree.xpath('//*[@id="server-content-single-12"]/ul')
+                    tags = ep_tags.select("ul > li > a")
                     if len(tags) > 0:
                         pass
-                    elif ch1 == None:
-                        pass
                     else:
-                        tags = soup.select("ul > a")
-                        check = tags.text.strip()
-                        aa = re.compile(r"([0-9.]+)화?")
-                        ch1 = aa.match(check)
-                        if len(tags) > 0:
-                            pass
-                        elif ch1 == None:
-                            pass
-                        else:
-                            pass
+                        ep_tags = tree.xpath('//*[@id="server-content-single-12"]/ul')
+                        tags = ep_tags.select("ul > a")
             total_epi_no = len(tags)
             logger.debug(len(tags))
 
@@ -1314,23 +1302,16 @@ class LogicLinkkfYommi(object):
 
             idx = 1
             for t in tags:
-                check_list = t.text.strip()
-                aa = re.compile(r"([0-9.]+)화?")
-                
-                try:
-                    checking = aa.match(check_list)
-                    logger.debug(checking)
-
-                    entity = {
-                        "_id": data["code"],
-                        "program_code": data["code"],
-                        "program_title": data["title"],
-                        "save_folder": Util.change_text_for_use_filename(
-                           data["save_folder"]
-                        ),
-                        "title": t.text.strip(),
-                    # "title": t.text_content().strip(),
-                    }
+                entity = {
+                    "_id": data["code"],
+                    "program_code": data["code"],
+                    "program_title": data["title"],
+                    "save_folder": Util.change_text_for_use_filename(
+                       data["save_folder"]
+                    ),
+                    "title": t.text.strip(),
+                # "title": t.text_content().strip(),
+                }
                 except:
                     pass
                 # entity['code'] = re1.search(t.attrib['href']).group('code')
