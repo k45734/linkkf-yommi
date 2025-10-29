@@ -1271,15 +1271,7 @@ class LogicLinkkfYommi(object):
                 if len(tags) > 0:
                     pass
                 else:
-                    ep_tags = tree.select('#server-content-single-12 > ul')
-                    logger.debug(ep_tags)					
-                    tags = ep_tags.select("ul > li > a")
-                    if len(tags) > 0:
-                        pass
-                    else:
-                        ep_tags = tree.select('#server-content-single-12 > ul')
-                        logger.debug(ep_tags)
-                        tags = ep_tags.select("ul > a")
+                    tags = soup.select("#server-content-single-12 > ul > li > a")
             total_epi_no = len(tags)
             logger.debug(len(tags))
 
