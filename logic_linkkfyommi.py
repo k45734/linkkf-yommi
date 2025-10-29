@@ -372,7 +372,7 @@ class LogicLinkkfYommi(object):
                 LogicLinkkfYommi.referer = url2
                 logger.debug(f"referer_url2: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
-                logger.debug(url2)
+                logger.debug(data.status_code)
                 logger.debug("source code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
