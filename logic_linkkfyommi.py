@@ -370,7 +370,7 @@ class LogicLinkkfYommi(object):
                 # kfani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" *.*.top routine=================================")
                 LogicLinkkfYommi.referer = url2
-                # logger.debug(f"url2: {url2}")
+                logger.debug(f"referer_url2: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
                 logger.debug(url2)
                 logger.debug("source code ::: %s", data)
