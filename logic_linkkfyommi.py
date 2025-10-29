@@ -734,7 +734,7 @@ class LogicLinkkfYommi(object):
                     #if video_url is not None:
                     #    continue
                     logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
-                    ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
+                    ret = LogicLinkkfYommi.get_video_url_from_url('https://linkkf.tv/', url2)
                     logger.debug(f"ret::::> {ret}")
                     if ret == None:
                         pass
