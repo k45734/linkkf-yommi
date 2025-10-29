@@ -1300,7 +1300,14 @@ class LogicLinkkfYommi(object):
 
             idx = 1
             for t in tags:
-                logger.debug(t.text.strip())
+                check_list = t.text.strip()
+                aa = re.compile(r"([0-9.]+)화?")
+                
+                try:
+                    checking = aa.match(check_list)
+                    logger.debug(checking)
+                except:
+                    pass
                 entity = {
                     "_id": data["code"],
                     "program_code": data["code"],
