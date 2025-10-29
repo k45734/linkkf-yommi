@@ -401,11 +401,11 @@ class LogicLinkkfYommi(object):
                     video_url = i
                     
                 try:
-                    match = re.compile(r"<track.+src=\"(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
+                    match = re.compile(r"url: \'(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
                     vtt_url = match.group("vtt_url")
                     logger.info(match.group())
                 except:
-                    match = re.compile(r"url: \'(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
+                    match = re.compile(r"<track.+src=\"(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
                     vtt_url = match.group("vtt_url")
                     logger.info(match.group())
                 # logger.info("match group: %s", match.group('vtt_url'))
