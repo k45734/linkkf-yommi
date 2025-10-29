@@ -369,7 +369,7 @@ class LogicLinkkfYommi(object):
             elif "top" in url2:
                 # kfani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" *.*.top routine=================================")
-                LogicLinkkfYommi.referer = url2
+                LogicLinkkfYommi.referer = 'https://linkkf.live/'
                 logger.debug(f"referer_url2: {url2}")
                 data = LogicLinkkfYommi.get_html(url2)
                 logger.debug(data.status_code)
