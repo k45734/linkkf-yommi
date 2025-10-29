@@ -81,7 +81,7 @@ class LogicLinkkfYommi(object):
         "Sec-Fetch-Site": "none",
         "Sec-Fetch-User": "?1",
         "Cache-Control": "max-age=0",
-        "Referer": "https://kfani.me",
+        "Referer": "https://linkkf.tv/",
         # "Cookie": "SL_G_WPT_TO=ko; SL_GWPT_Show_Hide_tmp=1; SL_wptGlobTipTmp=1",
     }
 
