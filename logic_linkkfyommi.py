@@ -371,8 +371,8 @@ class LogicLinkkfYommi(object):
                 logger.debug(" *.*.top routine=================================")
                 referer_url = 'https://linkkf.tv/'
                 #LogicLinkkfYommi.referer = f"{ModelSetting.get('linkkf_url')}"
-                logger.debug(LogicLinkkfYommi.referer)
-                logger.debug(f"referer_url2: {url2}")
+                #logger.debug(LogicLinkkfYommi.referer)
+                logger.debug(f"referer_url2: {LogicLinkkfYommi.referer}")
                 #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
                 #logger.debug("source code ::: %s", data_start)
                 data = LogicLinkkfYommi.get_html(url2)
@@ -403,9 +403,11 @@ class LogicLinkkfYommi(object):
                 try:
                     match = re.compile(r"<track.+src=\"(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
                     vtt_url = match.group("vtt_url")
+                    logger.info(match.group())
                 except:
                     match = re.compile(r"url: \'(?P<vtt_url>.*?.vtt)", re.MULTILINE).search(data)
                     vtt_url = match.group("vtt_url")
+                    logger.info(match.group())
                 # logger.info("match group: %s", match.group('vtt_url'))
                 logger.info("vtt_url: %s", vtt_url)
                 # logger.debug(f"LogicLinkkfYommi.referer: {LogicLinkkfYommi.referer}")
