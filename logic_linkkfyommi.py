@@ -369,7 +369,7 @@ class LogicLinkkfYommi(object):
             elif "top" in url2:
                 # kfani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" *.*.top routine=================================")
-                LogicLinkkfYommi.referer = 'https://linkkf.tv/'
+                referer_url = 'https://linkkf.tv/'
                 #LogicLinkkfYommi.referer = f"{ModelSetting.get('linkkf_url')}"
                 logger.debug(LogicLinkkfYommi.referer)
                 logger.debug(f"referer_url2: {url2}")
@@ -734,7 +734,7 @@ class LogicLinkkfYommi(object):
                     #if video_url is not None:
                     #    continue
                     logger.debug(f"url: {url}, url2: {url2}, count: {cnt}")
-                    ret = LogicLinkkfYommi.get_video_url_from_url('https://linkkf.tv/', url2)
+                    ret = LogicLinkkfYommi.get_video_url_from_url(url, url2)
                     logger.debug(f"ret::::> {ret}")
                     if ret == None:
                         pass
