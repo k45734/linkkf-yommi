@@ -1300,7 +1300,7 @@ class LogicLinkkfYommi(object):
 
             idx = 1
             for t in tags:
-                logger.debug(t.attrib['href'])
+                logger.debug(t.text.strip())
                 entity = {
                     "_id": data["code"],
                     "program_code": data["code"],
