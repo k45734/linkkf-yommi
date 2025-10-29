@@ -1306,18 +1306,19 @@ class LogicLinkkfYommi(object):
                 try:
                     checking = aa.match(check_list)
                     logger.debug(checking)
+
+                    entity = {
+                        "_id": data["code"],
+                        "program_code": data["code"],
+                        "program_title": data["title"],
+                        "save_folder": Util.change_text_for_use_filename(
+                           data["save_folder"]
+                        ),
+                        "title": t.text.strip(),
+                    # "title": t.text_content().strip(),
+                    }
                 except:
                     pass
-                entity = {
-                    "_id": data["code"],
-                    "program_code": data["code"],
-                    "program_title": data["title"],
-                    "save_folder": Util.change_text_for_use_filename(
-                        data["save_folder"]
-                    ),
-                    "title": t.text.strip(),
-                    # "title": t.text_content().strip(),
-                }
                 # entity['code'] = re1.search(t.attrib['href']).group('code')
 
                 # logger.debug(f"title ::>{entity['title']}")
