@@ -371,6 +371,7 @@ class LogicLinkkfYommi(object):
                 logger.debug(" *.*.top routine=================================")
                 LogicLinkkfYommi.referer = 'https://linkkf.tv/'
                 #LogicLinkkfYommi.referer = f"{ModelSetting.get('linkkf_url')}"
+                logger.debug(LogicLinkkfYommi.referer)
                 logger.debug(f"referer_url2: {url2}")
                 #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
                 #logger.debug("source code ::: %s", data_start)
