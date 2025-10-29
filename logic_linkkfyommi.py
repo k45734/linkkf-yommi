@@ -1272,10 +1272,24 @@ class LogicLinkkfYommi(object):
                     pass
                 else:
                     tags = soup.select("ul > li > a")
+                    check = tags.text.strip()
+                    aa = re.compile(r"([0-9.]+)화?")
+                    ch1 = aa.match(check)
                     if len(tags) > 0:
+                        pass
+                    elif ch1 == None
                         pass
                     else:
                         tags = soup.select("ul > a")
+                        check = tags.text.strip()
+                        aa = re.compile(r"([0-9.]+)화?")
+                        ch1 = aa.match(check)
+                        if len(tags) > 0:
+                            pass
+                        elif ch1 == None
+                            pass
+                        else:
+                            pass
             total_epi_no = len(tags)
             logger.debug(len(tags))
 
