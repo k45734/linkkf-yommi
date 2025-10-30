@@ -385,12 +385,9 @@ class LogicLinkkfYommi(object):
                 #logger.debug(data.status_code)
                 logger.debug("source code ::: %s", data.text)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
-                regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
+                #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
-                try:
-                    temp_url = re.findall(regex2, data)[0]
-                except:
-                    temp_url = re.findall(regex3, data)
+                temp_url = re.findall(regex3, data)
                 logger.debug("temp_url: %s", temp_url)
                 video_url = ""
                 ref = "https://linkkf.tv/"
