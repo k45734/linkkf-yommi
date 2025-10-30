@@ -81,7 +81,7 @@ class LogicLinkkfYommi(object):
         "Sec-Fetch-Site": "none",
         "Sec-Fetch-User": "?1",
         "Cache-Control": "max-age=0",
-        "Referer": "https://linkkf.tv/",
+        "Referer": "https://kfani.me",
         # "Cookie": "SL_G_WPT_TO=ko; SL_GWPT_Show_Hide_tmp=1; SL_wptGlobTipTmp=1",
     }
 
@@ -375,7 +375,10 @@ class LogicLinkkfYommi(object):
                 logger.debug(f"referer_url2: {LogicLinkkfYommi.referer}")
                 #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
                 #logger.debug("source code ::: %s", data_start)
-                data = LogicLinkkfYommi.get_html(url2)
+                #data = LogicLinkkfYommi.get_html(url2)
+                referer_url = 'https://linkkf.tv/'
+                headers = {'referer': referer_url}
+                data = requests.get(url2,headers=headers)
                 #logger.debug(data.status_code)
                 logger.debug("source code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
@@ -387,7 +390,7 @@ class LogicLinkkfYommi(object):
                     temp_url = re.findall(regex3, data)
                 logger.debug("temp_url: %s", temp_url)
                 video_url = ""
-                ref = "https://kfani.me"
+                ref = "https://linkkf.tv/"
                 for i in temp_url:
                     logger.debug("temp : %s",len(temp_url))
                     logger.debug("temp 2 : %s",len(i))
