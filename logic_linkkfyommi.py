@@ -381,9 +381,10 @@ class LogicLinkkfYommi(object):
                 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36','referer': referer_url}
                 #data_a = session.get(url,headers=headers)
                 #logger.debug(data_a.text)
-                data = session.get(url2,headers=headers)
+                html = session.get(url2,headers=headers)
+                data = html.text
                 logger.debug("url code ::: %s", url2)
-                logger.debug("source code ::: %s", data.text)
+                logger.debug("source code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
