@@ -338,15 +338,12 @@ class LogicLinkkfYommi(object):
                 # kfani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" *.*.top routine=================================")
                 LogicLinkkfYommi.referer = 'https://linkkf.tv/'
-                #LogicLinkkfYommi.referer = f"{ModelSetting.get('linkkf_url')}"
-                #logger.debug(LogicLinkkfYommi.referer)
-                logger.debug(f"referer_url2: {LogicLinkkfYommi.referer}")
-                #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
-                #logger.debug("source code ::: %s", data_start)
-                data = LogicLinkkfYommi.get_html(url2) #LogicLinkkfYommi.get_html(url2)
-                
-                logger.debug("url code ::: %s", url2)
-                logger.debug("source code ::: %s", data)
+                #data = LogicLinkkfYommi.get_html(url2)
+                referer_url = 'https://linkkf.tv/'
+                headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36','referer': referer_url}
+                gogo = requests.get(url2,headers=headers)
+                data = gogo.text
+                logger.debug("html code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"\n([^"]+)'
                 regex3 = r'https:\/\/.*?m3u8'
