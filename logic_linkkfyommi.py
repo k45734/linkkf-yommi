@@ -367,7 +367,7 @@ class LogicLinkkfYommi(object):
                 referer_url = url2
 
             elif "top" in url2:
-                session = requests.Session()
+                #session = requests.Session()
                 # kfani 계열 처리 => 방문해서 m3u8을 받아온다.
                 logger.debug(" *.*.top routine=================================")
                 referer_url = 'https://linkkf.tv/'
@@ -376,13 +376,13 @@ class LogicLinkkfYommi(object):
                 logger.debug(f"referer_url2: {LogicLinkkfYommi.referer}")
                 #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
                 #logger.debug("source code ::: %s", data_start)
-                #data = LogicLinkkfYommi.get_html(url2)
+                data = LogicLinkkfYommi.get_html(url2)
                 referer_url = 'https://linkkf.tv/'
                 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36','referer': referer_url}
                 #data_a = session.get(url,headers=headers)
                 #logger.debug(data_a.text)
-                html = session.get(url2,headers=headers)
-                data = html.text
+                #html = session.get(url2,headers=headers)
+                #data = html.text
                 logger.debug("url code ::: %s", url2)
                 logger.debug("source code ::: %s", data)
                 #regex2 = r'"([^\"]*m3u8)"|<source[^>]+src=\"([^"]+)'
