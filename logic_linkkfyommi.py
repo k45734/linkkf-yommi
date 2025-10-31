@@ -250,7 +250,7 @@ class LogicLinkkfYommi(object):
         return scraper.get(
             url,
             headers=LogicLinkkfYommi.headers,
-            timeout=10,proxies=proxies,
+            timeout=10,
         ).content.decode("utf8", errors="replace")
 
     @staticmethod
