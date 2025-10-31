@@ -370,7 +370,8 @@ class LogicQueue(object):
                             'http_headers': headers,
                             'noplaylist': True, 
                             'no_warnings': True,
-                            'ignoreerrors': True,
+                            'ignoreerrors': False, # 오류를 무시하지 않고 예외 발생 유도
+                            'abort_on_error': True, # 오류 발생 시 다운로드 중단
                             'quiet': True,
                         }
                         
