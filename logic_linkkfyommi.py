@@ -258,7 +258,7 @@ class LogicLinkkfYommi(object):
         video_url = None
         referer_url = None
         vtt_url = None
-        LogicLinkkfYommi.referer = url2        
+        LogicLinkkfYommi.referer = url        
         logger.info("dx download url : %s , url2 : %s" % (url, url2))
         # logger.debug(LogicLinkkfYommi.referer)
 
