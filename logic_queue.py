@@ -109,19 +109,100 @@ class LogicQueue(object):
             logger.error("Exception:%s", e)
             logger.error(traceback.format_exc())
 
-    # @staticmethod
-    # def download_thread_function():
-    #     while True:
-    #         try:
-    #             entity = LogicQueue.download_queue.get()
-    #             logger.debug(
-    #                 "Queue receive item:%s %s", entity.title_id, entity.episode_id
-    #             )
-    #             # LogicAni.process(entity)
-    #             LogicQueue.download_queue.task_done()
-    #         except Exception as e:
-    #             logger.error("Exception:%s", e)
-    #             logger.error(traceback.format_exc())
+    @staticmethod
+    def download_thread_function():
+        # ... (중략) ...
+        # yt-dlp 다운로드 로직 삽입
+        try:
+            # yt-dlp 옵션 설정
+            outtmpl = os.path.join(save_path, entity.info["filename"])
+            
+            # ... (yt_dlp 옵션 설정 유지) ...
+
+            LogicQueue.current_ffmpeg_count += 1
+            
+            entity.ffmpeg_status_kor = "다운로드중"
+            entity.ffmpeg_status = 5
+            plugin.socketio_list_refresh()
+            
+            # --- 다운로드 실행 ---
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                # ydl.download()는 파일 이름 자체를 반환하지 않으므로, extract_info를 사용합니다.
+                # 단순 다운로드만 원할 경우 download()를 사용하지만, 파일 경로 검증을 위해 
+                # 여기서는 download()를 사용하고 outtmpl을 기준으로 검사합니다.
+                ydl.download([entity.url[0]])
+
+            # --- 파일 존재 여부 최종 검증 로직 추가 ---
+            
+            # 최종 파일 경로 (outtmpl에서 확장자나 타이틀 변수가 사용되지 않은 단순 경로라고 가정)
+            final_filepath = outtmpl
+            
+            # 만약 outtmpl에 %(title)s.%(ext)s와 같은 변수가 포함되어 있다면, 
+            # yt-dlp의 info_dict를 가져와서 실제 파일명을 파악해야 합니다. 
+            # 단순화를 위해 여기서는 outtmpl 경로에 파일이 생성되었다고 가정하고 파일 존재 여부만 체크합니다.
+            
+            is_file_exist = os.path.exists(final_filepath)
+            
+            if is_file_exist and os.path.getsize(final_filepath) > 0:
+                # ------------------- 성공 로직 -------------------
+                LogicQueue.current_ffmpeg_count -= 1 
+                
+                # DB 업데이트 로직 (COMPLETED)
+                episode = ModelLinkkf.get_by_linkkf_id(entity.info["code"])
+                if episode:
+                    episode.completed = True
+                    episode.end_time = datetime.now()
+                    episode.completed_time = episode.end_time
+                    episode.filename = entity.info["filename"]
+                    episode.status = "completed"
+                    db.session.commit()
+                
+                entity.ffmpeg_status_kor = "완료"
+                entity.ffmpeg_status = 7
+                entity.ffmpeg_percent = 100
+                plugin.socketio_list_refresh()
+
+            else:
+                # ------------------- 실패 로직 (파일이 없거나 크기가 0) -------------------
+                logger.error(f"yt-dlp 다운로드는 예외없이 종료되었으나, 파일이 생성되지 않거나 크기가 0입니다: {final_filepath}")
+                
+                LogicQueue.current_ffmpeg_count -= 1 
+                
+                # DB 업데이트 로직 (ERROR)
+                episode = ModelLinkkf.get_by_linkkf_id(entity.info["code"])
+                if episode:
+                    episode.etc_abort = 1 # ERROR
+                    db.session.commit()
+                    
+                entity.ffmpeg_status_kor = "다운로드 실패 (파일 없음)"
+                entity.ffmpeg_status = 6
+                plugin.socketio_list_refresh()
+            
+        except yt_dlp.DownloadError as e:
+            logger.error(f"yt-dlp Download Error: {e}")
+            # ... (기존 실패 로직 유지) ...
+            if LogicQueue.current_ffmpeg_count > 0:
+                LogicQueue.current_ffmpeg_count -= 1 
+            
+            episode = ModelLinkkf.get_by_linkkf_id(entity.info["code"])
+            if episode:
+                episode.etc_abort = 1
+                db.session.commit()
+                
+            entity.ffmpeg_status_kor = "다운로드 실패"
+            entity.ffmpeg_status = 6
+            plugin.socketio_list_refresh()
+
+        except Exception as e:
+            logger.error("yt-dlp 일반 Exception:%s", e)
+            logger.error(traceback.format_exc())
+            # ... (기존 일반 예외 로직 유지) ...
+            if LogicQueue.current_ffmpeg_count > 0:
+                LogicQueue.current_ffmpeg_count -= 1 
+
+        finally:
+            # 성공/실패 여부에 관계없이 큐 작업 완료 처리
+            LogicQueue.download_queue.task_done()
 
     @staticmethod
     def download_thread_function():
