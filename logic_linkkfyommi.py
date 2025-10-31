@@ -223,7 +223,7 @@ class LogicLinkkfYommi(object):
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
         ]
         # ua = UserAgent(verify_ssl=False)
-        logger.debug(LogicLinkkfYommi.referer)
+        LogicLinkkfYommi.referer = 'https://linkkf.tv/'
         LogicLinkkfYommi.headers["User-Agent"] = random.choice(user_agents_list)
 
         LogicLinkkfYommi.headers["Referer"] = LogicLinkkfYommi.referer
