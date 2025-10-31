@@ -18,6 +18,7 @@ from datetime import datetime
 import requests
 
 # third-party
+import yt_dlp # <<<<<<<<<<<<<<< yt-dlp 임포트 추가
 
 # sjva 공용
 from framework import db, scheduler, path_data
@@ -42,6 +43,7 @@ logger = get_logger(package_name)
 
 
 class QueueEntity:
+# ... (중략: QueueEntity 클래스 내용 유지) ...
     static_index = 1
     entity_list = []
 
@@ -177,9 +179,10 @@ class LogicQueue(object):
                 if entity.url[0] is None:
                     LogicQueue.ffmpeg_status_kor = "URL실패"
                     plugin.socketio_list_refresh()
+                    LogicQueue.download_queue.task_done() # URL 실패 시 큐 완료 처리
                     continue
 
-                import ffmpeg
+                # import ffmpeg # <<<<<<<<<<<<<<<< FFmpeg 임포트 제거
 
                 max_pf_count = 0
                 referer = None
@@ -219,6 +222,7 @@ class LogicQueue(object):
                     entity.ffmpeg_status_kor = "파일 있음"
                     entity.ffmpeg_percent = 100
                     plugin.socketio_list_refresh()
+                    LogicQueue.download_queue.task_done() # <<<<<<<<<<<<<<<< 파일 존재 시 큐 완료 처리 추가
                     continue
 
                 headers = {
@@ -234,43 +238,120 @@ class LogicQueue(object):
 
                 if "nianv3c2.xyz" in entity.url[0]:
                     logger.debug(f"new type {entity.url[0]}")
-                    #WVTool.aria2c_download(entity.url[0], "./temp")
+                    #WVTool.aria2c_download(entity.url[0], "./temp") # aria2c 로직 유지
+                    LogicQueue.download_queue.task_done() # <<<<<<<<<<<<<<<< aria2c 완료 시 큐 완료 처리
                 else:
-                    #target = save_path + '/' + entity.info["filename"]
-                    #if not os.path.exists('{}'.format(save_path)):
-                    #    os.makedirs('{}'.format(save_path))
-                    #source = entity.url[0]
-                    #headers_command = []
-                    #for key, value in headers.items():
-                    #    if key.lower() == 'user-agent':
-                    #        headers_command.append('-user_agent')
-                    #        headers_command.append(value)
-                    #        pass
-                    #    else:
-                    #        headers_command.append('-headers')
-                    #        if platform.system() == 'Windows':
-                    #            headers_command.append('\'%s:%s\''%(key,value))
-                     #       else:
-                     #           headers_command.append(f'{key}:{value}')
-                    #hh2 = ' '.join(headers_command)
-                   # command = ['ffmpeg', '-y', hh2, '-i', source, '-c', 'copy', target]
-                    #logger.info('%s',command)
-                    #test = ' '.join(command)
-                    #subprocess.call(test, universal_newlines=True, encoding='utf8')
-                    f = ffmpeg.Ffmpeg(
-                        entity.url[0],
-                        entity.info["filename"],
-                        plugin_id=entity.entity_id,
-                        listener=LogicQueue.ffmpeg_listener,
-                        max_pf_count=max_pf_count,
-                        #   referer=referer,
-                        call_plugin=package_name,
-                        save_path=save_path,
-                        headers=headers,
-                    )
-                    f.start()
-                LogicQueue.current_ffmpeg_count += 1
-                LogicQueue.download_queue.task_done()
+                    # target = save_path + '/' + entity.info["filename"]
+                    # if not os.path.exists('{}'.format(save_path)):
+                    #     os.makedirs('{}'.format(save_path))
+                    # source = entity.url[0]
+                    # headers_command = []
+                    # for key, value in headers.items():
+                    #     if key.lower() == 'user-agent':
+                    #         headers_command.append('-user_agent')
+                    #         headers_command.append(value)
+                    #         pass
+                    #     else:
+                    #         headers_command.append('-headers')
+                    #         if platform.system() == 'Windows':
+                    #             headers_command.append('\'%s:%s\''%(key,value))
+                    #         else:
+                    #             headers_command.append(f'{key}:{value}')
+                    # hh2 = ' '.join(headers_command)
+                    # command = ['ffmpeg', '-y', hh2, '-i', source, '-c', 'copy', target]
+                    # logger.info('%s',command)
+                    # test = ' '.join(command)
+                    # subprocess.call(test, universal_newlines=True, encoding='utf8') # <<<<<<<<<<<<<<<< FFmpeg 명령어 실행 주석 제거
+                    # f = ffmpeg.Ffmpeg( # <<<<<<<<<<<<<<<< FFmpeg 객체 실행 제거
+                    #     entity.url[0],
+                    #     entity.info["filename"],
+                    #     plugin_id=entity.entity_id,
+                    #     listener=LogicQueue.ffmpeg_listener,
+                    #     max_pf_count=max_pf_count,
+                    #     #   referer=referer,
+                    #     call_plugin=package_name,
+                    #     save_path=save_path,
+                    #     headers=headers,
+                    # )
+                    # f.start() # <<<<<<<<<<<<<<<< FFmpeg start 제거
+
+                    # yt-dlp 다운로드 로직 삽입
+                    try:
+                        # yt-dlp 옵션 설정
+                        outtmpl = os.path.join(save_path, entity.info["filename"])
+                        
+                        # yt-dlp는 기본적으로 최적 포맷을 선택하고 FFmpeg로 병합합니다.
+                        ydl_opts = {
+                            'outtmpl': outtmpl,
+                            # 최적의 비디오와 오디오를 선택하고 병합하며, MP4로 변환 시도
+                            # bestvideo[ext=mp4]+bestaudio[ext=m4a] 포맷을 사용하여 병합 시도
+                            'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', 
+                            'http_headers': headers,
+                            'noplaylist': True, 
+                            'no_warnings': True,
+                            'ignoreerrors': True,
+                            'quiet': True,
+                        }
+                        
+                        # 프록시 설정 (ModelSetting에서 직접 가져옴)
+                        if ModelSetting.get('use_proxy') == 'True':
+                            ydl_opts['proxy'] = ModelSetting.get('proxy')
+
+                        LogicQueue.current_ffmpeg_count += 1 # 다운로드 시작 전 카운트 증가
+                        
+                        # 상태 업데이트 (다운로드 시작)
+                        entity.ffmpeg_status_kor = "다운로드중"
+                        entity.ffmpeg_status = 5 # Ffmpeg.Status.DOWNLOADING (추정 값)
+                        plugin.socketio_list_refresh()
+                        
+                        # 실제 yt-dlp 다운로드 (Blocking Call)
+                        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                            ydl.download([entity.url[0]])
+
+                        # 다운로드 완료 후 상태 업데이트 및 DB 처리
+                        LogicQueue.current_ffmpeg_count -= 1 # 카운트 감소
+                        
+                        # DB 업데이트 로직 (COMPLETED 로직 대체)
+                        episode = ModelLinkkf.get_by_linkkf_id(entity.info["code"])
+                        if episode:
+                            episode.completed = True
+                            episode.end_time = datetime.now()
+                            episode.completed_time = episode.end_time
+                            episode.filename = entity.info["filename"] # 최종 파일명
+                            episode.status = "completed"
+                            db.session.commit()
+                        
+                        entity.ffmpeg_status_kor = "완료"
+                        entity.ffmpeg_status = 7 # Ffmpeg.Status.COMPLETED (추정 값)
+                        entity.ffmpeg_percent = 100
+                        plugin.socketio_list_refresh() # 소켓io 갱신
+
+                    except yt_dlp.DownloadError as e:
+                        logger.error(f"yt-dlp Download Error: {e}")
+                        # 실패 시 카운트 감소
+                        if LogicQueue.current_ffmpeg_count > 0:
+                            LogicQueue.current_ffmpeg_count -= 1 
+                        
+                        # DB 업데이트 로직 (ERROR 로직 대체)
+                        episode = ModelLinkkf.get_by_linkkf_id(entity.info["code"])
+                        if episode:
+                            episode.etc_abort = 1 # ERROR
+                            db.session.commit()
+                            
+                        entity.ffmpeg_status_kor = "다운로드 실패"
+                        entity.ffmpeg_status = 6 # Ffmpeg.Status.ERROR (추정 값)
+                        plugin.socketio_list_refresh()
+                    except Exception as e:
+                        logger.error("yt-dlp 일반 Exception:%s", e)
+                        logger.error(traceback.format_exc())
+                        # 일반 예외 처리 시에도 카운트 감소 필요
+                        if LogicQueue.current_ffmpeg_count > 0:
+                            LogicQueue.current_ffmpeg_count -= 1 
+
+                    LogicQueue.download_queue.task_done() # <<<<<<<<<<<<<<<< yt-dlp 완료/실패 시 큐 완료 처리
+
+                # LogicQueue.current_ffmpeg_count += 1 # <<<<<<<<<<<<<<<< FFmpeg 카운트 중복 처리 제거
+                # LogicQueue.download_queue.task_done() # <<<<<<<<<<<<<<<< FFmpeg 큐 완료 중복 처리 제거
 
                 # vtt file to srt file
                 from framework.common.util import write_file, convert_vtt_to_srt
