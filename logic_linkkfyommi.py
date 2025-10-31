@@ -66,7 +66,12 @@ cache_path = os.path.dirname(__file__)
 
 
 # requests_cache.install_cache("linkkf_cache", backend="sqlite", expire_after=300)
-
+# cloudscraper 인스턴스를 전역 또는 클래스 레벨에서 생성
+# 이 부분은 LogicLinkkfYommi 클래스 내부에 두는 것이 좋습니다.
+_scraper = cloudscraper.create_scraper(
+    delay=10, 
+    browser={'browser': 'chrome', 'platform': 'windows', 'mobile': False}
+)
 
 class LogicLinkkfYommi(object):
     headers = {
@@ -88,6 +93,46 @@ class LogicLinkkfYommi(object):
     session = None
     referer = None
     current_data = None
+    @staticmethod
+    def _request_html(url, headers=None, allow_redirects=True):
+        """
+        cloudscraper를 사용하여 웹 요청을 보내는 헬퍼 함수
+        """
+        from .logic import Logic # Logic 클래스 임포트
+
+        _headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.0.0 Safari/537.36",
+            "Referer": Logic.get_setting_value('linkkf_url'), # 설정값의 linkkf_url 사용
+        }
+        if headers:
+            _headers.update(headers)
+        
+        try:
+            # 프록시 설정 확인
+            proxies = None
+            if Logic.get_setting_value('use_proxy') == 'True' and Logic.get_setting_value('proxy'):
+                proxy_url = Logic.get_setting_value('proxy')
+                proxies = {'http': proxy_url, 'https': proxy_url}
+
+            response = _scraper.get(
+                url, 
+                headers=_headers, 
+                proxies=proxies, 
+                allow_redirects=allow_redirects, 
+                timeout=30
+            )
+            response.raise_for_status()
+
+            # Cloudflare 우회 실패 가능성을 한 번 더 검증
+            if "Just a moment..." in response.text or "Checking your browser" in response.text:
+                 logger.error(f"Cloudflare 챌린지 페이지가 반환됨: {url}")
+                 return None
+
+            return response
+        except Exception as e:
+            logger.error(f"HTML 요청 실패: {url}")
+            logger.error(traceback.format_exc())
+            return None
 
     @staticmethod
     def get_html(url, cached=False):
@@ -376,7 +421,7 @@ class LogicLinkkfYommi(object):
                 logger.debug(f"referer_url2: {LogicLinkkfYommi.referer}")
                 #data_start = LogicLinkkfYommi.get_html('https://www.linkkf.net/verify/index/')
                 #logger.debug("source code ::: %s", data_start)
-                data = LogicLinkkfYommi.get_html(url2)
+                data = LogicLinkkfYommi._request_html(url2) #LogicLinkkfYommi.get_html(url2)
                 #referer_url = 'https://linkkf.tv/'
                 #headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36','referer': referer_url}
                 #data_a = session.get(url,headers=headers)
