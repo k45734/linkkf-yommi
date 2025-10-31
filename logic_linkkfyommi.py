@@ -223,11 +223,11 @@ class LogicLinkkfYommi(object):
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36",
         ]
         # ua = UserAgent(verify_ssl=False)
-
+        logger.debug(LogicLinkkfYommi.referer)
         LogicLinkkfYommi.headers["User-Agent"] = random.choice(user_agents_list)
 
         LogicLinkkfYommi.headers["Referer"] = LogicLinkkfYommi.referer
-
+        logger.debug(LogicLinkkfYommi.referer)
 
         if LogicLinkkfYommi.session is None:
             LogicLinkkfYommi.session = requests.Session()
@@ -250,7 +250,7 @@ class LogicLinkkfYommi(object):
         return scraper.get(
             url,
             headers=LogicLinkkfYommi.headers,
-            timeout=10,
+            timeout=10,proxies=proxies,
         ).content.decode("utf8", errors="replace")
 
     @staticmethod
